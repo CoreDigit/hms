@@ -1,0 +1,16 @@
+
+- form modal live (form-layouts page)
+- form pagination (form-wizards page)
+- gallery page
+- invoice page (receipt & payment)
+- Pricing page (multi services for patients)
+- Product-Cart page (multiple services table)
+
+- Timeline page (patient details)
+
+- Widget-Notifications page (chat message when it's empty)
+- press, content appears (accordion & collapse pages)
+
+
+- badge (badge page)
+- brows input file (form-elements page)

@@ -58,10 +58,10 @@ $app = require_once __DIR__ . "/../bootstrap/app.php";
 // Set storage path to writable /tmp/storage
 $app->useStoragePath("/tmp/storage");
 
-$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-
 if ($needsMigration) {
     try {
+        $console = $app->make(Illuminate\Contracts\Console\Kernel::class);
+        $console->bootstrap();
         \Illuminate\Support\Facades\Artisan::call("migrate", ["--force" => true]);
         \Illuminate\Support\Facades\Artisan::call("db:seed", ["--force" => true]);
     } catch (\Throwable $e) {
@@ -69,9 +69,22 @@ if ($needsMigration) {
     }
 }
 
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
+
+if (isset($response->exception) && $response->exception instanceof \Throwable) {
+    $e = $response->exception;
+    http_response_code(500);
+    echo "<div style=\"font-family: sans-serif; padding: 20px; background: #fff0f0; color: #c00; border: 2px solid #f00;\">";
+    echo "<h2>Laravel Exception: " . htmlspecialchars($e->getMessage()) . "</h2>";
+    echo "<p><strong>File:</strong> " . htmlspecialchars($e->getFile()) . ":" . $e->getLine() . "</p>";
+    echo "<pre style=\"white-space: pre-wrap; font-size: 12px;\">" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
+    echo "</div>";
+    exit;
+}
 
 $response->send();
 $kernel->terminate($request, $response);

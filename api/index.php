@@ -38,10 +38,12 @@ if (empty($_ENV["APP_KEY"]) && empty(getenv("APP_KEY"))) {
 
 // 4. Fallback SQLite database in /tmp if DB_HOST is not configured or pointing to local
 $dbHost = $_ENV["DB_HOST"] ?? getenv("DB_HOST");
+$needsMigration = false;
 if (empty($dbHost) || $dbHost === "127.0.0.1" || $dbHost === "localhost") {
     $sqliteFile = "/tmp/database.sqlite";
-    if (!file_exists($sqliteFile)) {
+    if (!file_exists($sqliteFile) || filesize($sqliteFile) === 0) {
         touch($sqliteFile);
+        $needsMigration = true;
     }
     $_ENV["DB_CONNECTION"] = "sqlite";
     $_ENV["DB_DATABASE"] = $sqliteFile;
@@ -58,20 +60,18 @@ $app->useStoragePath("/tmp/storage");
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
+if ($needsMigration) {
+    try {
+        \Illuminate\Support\Facades\Artisan::call("migrate", ["--force" => true]);
+        \Illuminate\Support\Facades\Artisan::call("db:seed", ["--force" => true]);
+    } catch (\Throwable $e) {
+        // Silently handle seeding edge cases if any
+    }
+}
+
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
-
-if (isset($response->exception) && $response->exception instanceof \Throwable) {
-    $e = $response->exception;
-    http_response_code(500);
-    echo "<div style=\"font-family: sans-serif; padding: 20px; background: #fff0f0; color: #c00; border: 2px solid #f00;\">";
-    echo "<h2>Laravel Exception: " . htmlspecialchars($e->getMessage()) . "</h2>";
-    echo "<p><strong>File:</strong> " . htmlspecialchars($e->getFile()) . ":" . $e->getLine() . "</p>";
-    echo "<pre style=\"white-space: pre-wrap; font-size: 12px;\">" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
-    echo "</div>";
-    exit;
-}
 
 $response->send();
 $kernel->terminate($request, $response);

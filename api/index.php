@@ -1,9 +1,5 @@
 <?php
 
-// Enable Laravel debug mode to reveal the exact runtime exception
-$_ENV["APP_DEBUG"] = "true";
-putenv("APP_DEBUG=true");
-
 // 1. Prepare writable temporary storage directories in /tmp
 $storageDirs = [
     "/tmp/storage/framework/views",
@@ -53,5 +49,30 @@ if (empty($dbHost) || $dbHost === "127.0.0.1" || $dbHost === "localhost") {
     putenv("DB_DATABASE=" . $sqliteFile);
 }
 
-require __DIR__ . "/../public/index.php";
+require __DIR__ . "/../vendor/autoload.php";
+
+$app = require_once __DIR__ . "/../bootstrap/app.php";
+
+// Set storage path to writable /tmp/storage
+$app->useStoragePath("/tmp/storage");
+
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+);
+
+if (isset($response->exception) && $response->exception instanceof \Throwable) {
+    $e = $response->exception;
+    http_response_code(500);
+    echo "<div style=\"font-family: sans-serif; padding: 20px; background: #fff0f0; color: #c00; border: 2px solid #f00;\">";
+    echo "<h2>Laravel Exception: " . htmlspecialchars($e->getMessage()) . "</h2>";
+    echo "<p><strong>File:</strong> " . htmlspecialchars($e->getFile()) . ":" . $e->getLine() . "</p>";
+    echo "<pre style=\"white-space: pre-wrap; font-size: 12px;\">" . htmlspecialchars($e->getTraceAsString()) . "</pre>";
+    echo "</div>";
+    exit;
+}
+
+$response->send();
+$kernel->terminate($request, $response);
 

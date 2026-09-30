@@ -2,16 +2,20 @@ FROM dunglas/frankenphp:php8.2-bookworm
 
 WORKDIR /app
 
+# Install PHP extensions and required packages
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
+    curl \
     libzip-dev \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     libicu-dev \
     libonig-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
     && docker-php-ext-install \
         pdo_mysql \
         mbstring \
@@ -23,12 +27,14 @@ RUN apt-get update && apt-get install -y \
         zip \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel application first
+# Copy complete Laravel project
 COPY . .
 
-# Install PHP dependencies without running Laravel scripts yet
+# Install PHP dependencies
+# --no-scripts prevents artisan from running before the application is ready
 RUN composer install \
     --no-dev \
     --no-interaction \
@@ -36,28 +42,35 @@ RUN composer install \
     --optimize-autoloader \
     --no-scripts
 
-# Create required Laravel directories
+# Create Laravel storage/cache directories
 RUN mkdir -p \
     storage/framework/cache \
     storage/framework/sessions \
     storage/framework/views \
+    storage/logs \
     bootstrap/cache
 
+# Set permissions
 RUN chmod -R 775 storage bootstrap/cache
 
-# Generate Laravel package discovery after artisan exists
+# Run Laravel package discovery
 RUN php artisan package:discover --ansi
 
-# Create storage symlink
+# Create public/storage symlink
 RUN php artisan storage:link || true
 
-# Build frontend assets
-RUN if [ -f package.json ]; then \
-        apt-get update && apt-get install -y nodejs npm && \
-        npm install && \
-        npm run build && \
-        rm -rf /var/lib/apt/lists/*; \
-    fi
+# Install Node.js and npm
+RUN apt-get update && apt-get install -y \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
 
-# Start FrankenPHP on Vercel's PORT
+# Install frontend dependencies
+RUN npm install
+
+# Build Vite production assets
+RUN npm run build
+
+# Start Laravel with FrankenPHP
+# Vercel provides PORT automatically
 CMD ["sh", "-c", "frankenphp php-server --root /app/public --listen :${PORT:-80}"]

@@ -1,5 +1,11 @@
 <?php
 
+// Fix REQUEST_URI for Vercel rewrites
+if (isset($_SERVER["REQUEST_URI"]) && str_starts_with($_SERVER["REQUEST_URI"], "/api/index.php")) {
+    $uri = substr($_SERVER["REQUEST_URI"], 14);
+    $_SERVER["REQUEST_URI"] = ($uri !== "" && $uri !== false) ? $uri : "/";
+}
+
 // 1. Prepare writable temporary storage directories in /tmp
 $storageDirs = [
     "/tmp/storage/framework/views",

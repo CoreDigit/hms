@@ -1,6 +1,8 @@
 <?php
 
 try {
+    $basePath = realpath(__DIR__ . "/..");
+
     // 1. Prepare writable temporary storage directories in /tmp
     $storageDirs = [
         "/tmp/storage/framework/views",
@@ -50,9 +52,9 @@ try {
         putenv("DB_DATABASE=" . $sqliteFile);
     }
 
-    require __DIR__ . "/../vendor/autoload.php";
+    require $basePath . "/vendor/autoload.php";
 
-    $app = require_once __DIR__ . "/../bootstrap/app.php";
+    $app = require_once $basePath . "/bootstrap/app.php";
 
     // Set storage path to writable /tmp/storage
     $app->useStoragePath("/tmp/storage");

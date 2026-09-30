@@ -3,7 +3,18 @@
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.7.1",
-      "includeFiles": "**"
+      "includeFiles": [
+        "app/**",
+        "bootstrap/**",
+        "config/**",
+        "database/**",
+        "lang/**",
+        "public/**",
+        "resources/**",
+        "routes/**",
+        "storage/**",
+        "vendor/**"
+      ]
     }
   },
   "routes": [

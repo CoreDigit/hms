@@ -1,7 +1,11 @@
 <?php
 
+ini_set("display_errors", "1");
+ini_set("display_startup_errors", "1");
+error_reporting(E_ALL);
+
 try {
-    $basePath = realpath(__DIR__ . "/..");
+    $basePath = dirname(__DIR__);
 
     // 1. Prepare writable temporary storage directories in /tmp
     $storageDirs = [
@@ -70,10 +74,10 @@ try {
 } catch (\Throwable $e) {
     http_response_code(500);
     echo "<div style=\"font-family: sans-serif; padding: 30px; background: #fff3f3; color: #900; border: 1px solid #f99; border-radius: 8px;\">";
-    echo "<h2 style=\"margin-top:0;\">?? Laravel Serverless Runtime Exception</h2>";
+    echo "<h2 style=\"margin-top:0;\">?? Laravel Serverless Error Diagnostic</h2>";
     echo "<p><strong>Message:</strong> " . htmlspecialchars($e->getMessage()) . "</p>";
     echo "<p><strong>File:</strong> " . htmlspecialchars($e->getFile()) . ":" . $e->getLine() . "</p>";
-    echo "<details><summary><strong>Stack Trace:</strong></summary><pre style=\"white-space: pre-wrap; font-size: 12px; margin-top: 10px; background: #eee; padding: 10px;\">" . htmlspecialchars($e->getTraceAsString()) . "</pre></details>";
+    echo "<details open><summary><strong>Stack Trace:</strong></summary><pre style=\"white-space: pre-wrap; font-size: 12px; margin-top: 10px; background: #eee; padding: 10px;\">" . htmlspecialchars($e->getTraceAsString()) . "</pre></details>";
     echo "</div>";
 }
 

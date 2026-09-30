@@ -27,14 +27,5 @@ class Handler extends ExceptionHandler
             //
         });
     }
-
-    public function render($request, Throwable $e)
-    {
-        if (env("APP_DEBUG", true)) {
-            return response()->make("<div style=\"font-family:sans-serif;padding:30px;background:#fff0f0;color:#900;border:2px solid #f00;\"><h2>Laravel Error: " . htmlspecialchars($e->getMessage()) . "</h2><p><strong>File:</strong> " . htmlspecialchars($e->getFile()) . ":" . $e->getLine() . "</p><pre style=\"white-space:pre-wrap;font-size:12px;background:#eee;padding:15px;\">" . htmlspecialchars($e->getTraceAsString()) . "</pre></div>", 500);
-        }
-
-        return parent::render($request, $e);
-    }
 }
 

@@ -36,18 +36,5 @@ if (empty($_ENV["APP_KEY"]) && empty(getenv("APP_KEY"))) {
     putenv("APP_KEY=base64:HfjYTjwrTTQ3vt5vGnMnb3pz8mLiPCfgeRGS8pwozSw=");
 }
 
-// 4. Fallback SQLite database in /tmp if DB_HOST is not configured or pointing to local
-$dbHost = $_ENV["DB_HOST"] ?? getenv("DB_HOST");
-if (empty($dbHost) || $dbHost === "127.0.0.1" || $dbHost === "localhost") {
-    $sqliteFile = "/tmp/database.sqlite";
-    if (!file_exists($sqliteFile) || filesize($sqliteFile) === 0) {
-        touch($sqliteFile);
-    }
-    $_ENV["DB_CONNECTION"] = "sqlite";
-    $_ENV["DB_DATABASE"] = $sqliteFile;
-    putenv("DB_CONNECTION=sqlite");
-    putenv("DB_DATABASE=" . $sqliteFile);
-}
-
 require __DIR__ . "/../public/index.php";
 

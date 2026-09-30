@@ -1,22 +1,11 @@
 {
   "version": 2,
-  "functions": {
-    "api/index.php": {
-      "runtime": "vercel-php@0.7.1",
-      "includeFiles": [
-        "app/**",
-        "bootstrap/**",
-        "config/**",
-        "database/**",
-        "lang/**",
-        "public/**",
-        "resources/**",
-        "routes/**",
-        "storage/**",
-        "vendor/**"
-      ]
+  "builds": [
+    {
+      "src": "api/index.php",
+      "use": "vercel-php@0.8.0"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/build/(.*)",

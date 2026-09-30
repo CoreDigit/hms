@@ -1,5 +1,9 @@
 <?php
 
+// Enable Laravel debug mode to reveal the exact runtime exception
+$_ENV["APP_DEBUG"] = "true";
+putenv("APP_DEBUG=true");
+
 // 1. Prepare writable temporary storage directories in /tmp
 $storageDirs = [
     "/tmp/storage/framework/views",

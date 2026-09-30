@@ -1,11 +1,5 @@
 <?php
 
-// Fix REQUEST_URI for Vercel rewrites
-if (isset($_SERVER["REQUEST_URI"]) && str_starts_with($_SERVER["REQUEST_URI"], "/api/index.php")) {
-    $uri = substr($_SERVER["REQUEST_URI"], 14);
-    $_SERVER["REQUEST_URI"] = ($uri !== "" && $uri !== false) ? $uri : "/";
-}
-
 // 1. Prepare writable temporary storage directories in /tmp
 $storageDirs = [
     "/tmp/storage/framework/views",
@@ -55,19 +49,5 @@ if (empty($dbHost) || $dbHost === "127.0.0.1" || $dbHost === "localhost") {
     putenv("DB_DATABASE=" . $sqliteFile);
 }
 
-require __DIR__ . "/../vendor/autoload.php";
-
-$app = require_once __DIR__ . "/../bootstrap/app.php";
-
-// Set storage path to writable /tmp/storage
-$app->useStoragePath("/tmp/storage");
-
-$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-
-$response = $kernel->handle(
-    $request = Illuminate\Http\Request::capture()
-);
-
-$response->send();
-$kernel->terminate($request, $response);
+require __DIR__ . "/../public/index.php";
 

@@ -2,20 +2,18 @@ FROM dunglas/frankenphp:php8.2-bookworm
 
 WORKDIR /app
 
-# Install PHP extensions and required packages
+# PHP dependencies
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
-    curl \
     libzip-dev \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     libicu-dev \
     libonig-dev \
-    && docker-php-ext-configure gd \
-        --with-freetype \
-        --with-jpeg \
+    curl \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo_mysql \
         mbstring \
@@ -27,50 +25,43 @@ RUN apt-get update && apt-get install -y \
         zip \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Composer
+# Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy complete Laravel project
-COPY . .
+# PHP dependencies
+COPY composer.json composer.lock ./
 
-# Install PHP dependencies
-# --no-scripts prevents artisan from running before the application is ready
 RUN composer install \
     --no-dev \
     --no-interaction \
     --prefer-dist \
-    --optimize-autoloader \
-    --no-scripts
+    --optimize-autoloader
 
-# Create Laravel storage/cache directories
+# Node dependencies
+COPY package.json package-lock.json ./
+
+RUN npm ci
+
+# Application
+COPY . .
+
+# Build Laravel Vite CSS/JS
+RUN npm run build
+
+# Laravel directories
 RUN mkdir -p \
     storage/framework/cache \
     storage/framework/sessions \
     storage/framework/views \
-    storage/logs \
     bootstrap/cache
 
-# Set permissions
 RUN chmod -R 775 storage bootstrap/cache
 
-# Run Laravel package discovery
-RUN php artisan package:discover --ansi
-
-# Create public/storage symlink
 RUN php artisan storage:link || true
 
-# Install Node.js and npm
-RUN apt-get update && apt-get install -y \
-    nodejs \
-    npm \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install frontend dependencies
-RUN npm install
-
-# Build Vite production assets
-RUN npm run build
-
-# Start Laravel with FrankenPHP
-# Vercel provides PORT automatically
+# Vercel container port
 CMD ["sh", "-c", "frankenphp php-server --root /app/public --listen :${PORT:-80}"]

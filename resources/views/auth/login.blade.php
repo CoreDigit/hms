@@ -60,11 +60,13 @@
                                                 <select id="login_as" class="form-control select2-no-search">
                                                     <option disabled selected>{{ __('auth.login.as') }}</option>
                                                     <option value="admin">{{ __('users.admin') }}</option>
+                                                    <option value="receptionist">Receptionist / Front Desk</option>
                                                     <option value="doctor">{{ __('users.doctor') }}</option>
-                                                    <option value="rayEmployee">{{ __('users.rayEmployee') }}
-                                                    </option>
-                                                    <option value="labEmployee">{{ __('users.labEmployee') }}
-                                                    </option>
+                                                    <option value="nurse">Nurse / Clinical Staff</option>
+                                                    <option value="accountant">Accountant / Billing</option>
+                                                    <option value="pharmacist">Pharmacist</option>
+                                                    <option value="rayEmployee">{{ __('users.rayEmployee') }}</option>
+                                                    <option value="labEmployee">{{ __('users.labEmployee') }}</option>
                                                     <option value="patient">{{ __('users.patient') }}</option>
                                                 </select>
 
@@ -77,6 +79,26 @@
                                                         {{ __('auth.login.as') . ' ' . __('users.admin') }}
                                                     </h2>
                                                     @include('users.admin.partials.login-form')
+                                                </div>
+
+                                                <div class="login_form" id="receptionist">
+                                                    <h2>Login as Receptionist</h2>
+                                                    @include('users.receptionist.partials.login-form')
+                                                </div>
+
+                                                <div class="login_form" id="nurse">
+                                                    <h2>Login as Nurse</h2>
+                                                    @include('users.nurse.partials.login-form')
+                                                </div>
+
+                                                <div class="login_form" id="accountant">
+                                                    <h2>Login as Accountant</h2>
+                                                    @include('users.accountant.partials.login-form')
+                                                </div>
+
+                                                <div class="login_form" id="pharmacist">
+                                                    <h2>Login as Pharmacist</h2>
+                                                    @include('users.pharmacist.partials.login-form')
                                                 </div>
 
                                                 <div class="login_form" id="doctor">

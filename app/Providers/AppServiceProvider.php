@@ -6,6 +6,7 @@ use App\Interfaces\DoctorInterface;
 use App\Repositories\DoctorRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +23,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }

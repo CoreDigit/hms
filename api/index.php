@@ -34,11 +34,9 @@ putenv("VIEW_COMPILED_PATH=/tmp/storage/framework/views");
 $_SERVER["HTTPS"] = "on";
 $_SERVER["SERVER_PORT"] = 443;
 
-// 4. Default Session Driver for Serverless (database)
-if (empty($_ENV["SESSION_DRIVER"]) && empty(getenv("SESSION_DRIVER"))) {
-    $_ENV["SESSION_DRIVER"] = "database";
-    putenv("SESSION_DRIVER=database");
-}
+// 4. Force Database Session Driver for Vercel Serverless
+$_ENV["SESSION_DRIVER"] = "database";
+putenv("SESSION_DRIVER=database");
 
 // 5. APP_KEY fallback if not set in Vercel settings
 if (empty($_ENV["APP_KEY"]) && empty(getenv("APP_KEY"))) {

@@ -10,13 +10,13 @@ class TrustProxies extends Middleware
     /**
      * The trusted proxies for this application.
      *
-     * @var array<int, string>|string|null
+     * @var array<int, string>|string<null
      */
-    protected $proxies;
+    protected $proxies = '*';
 
     /**
      * The headers that should be used to detect proxies.
-     *
+     * 
      * @var int
      */
     protected $headers =

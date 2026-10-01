@@ -30,11 +30,20 @@ putenv("APP_ROUTES_CACHE=/tmp/routes.php");
 putenv("APP_SERVICES_CACHE=/tmp/services.php");
 putenv("VIEW_COMPILED_PATH=/tmp/storage/framework/views");
 
-// 3. APP_KEY fallback if not set in Vercel settings
+// 3. Force HTTPS for Vercel Reverse Proxy
+$_SERVER["HTTPS"] = "on";
+$_SERVER["SERVER_PORT"] = 443;
+
+// 4. Default Session Driver for Serverless (database)
+if (empty($_ENV["SESSION_DRIVER"]) && empty(getenv("SESSION_DRIVER"))) {
+    $_ENV["SESSION_DRIVER"] = "database";
+    putenv("SESSION_DRIVER=database");
+}
+
+// 5. APP_KEY fallback if not set in Vercel settings
 if (empty($_ENV["APP_KEY"]) && empty(getenv("APP_KEY"))) {
     $_ENV["APP_KEY"] = "base64:HfjYTjwrTTQ3vt5vGnMnb3pz8mLiPCfgeRGS8pwozSw=";
     putenv("APP_KEY=base64:HfjYTjwrTTQ3vt5vGnMnb3pz8mLiPCfgeRGS8pwozSw=");
 }
 
 require __DIR__ . "/../public/index.php";
-

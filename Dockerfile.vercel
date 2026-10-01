@@ -2,17 +2,17 @@ FROM dunglas/frankenphp:php8.2-bookworm
 
 WORKDIR /app
 
-# PHP dependencies
+# PHP extensions and required packages
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
+    curl \
     libzip-dev \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     libicu-dev \
     libonig-dev \
-    curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo_mysql \
@@ -25,31 +25,27 @@ RUN apt-get update && apt-get install -y \
         zip \
     && rm -rf /var/lib/apt/lists/*
 
-# Node.js
+# Node.js 20
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# PHP dependencies
-COPY composer.json composer.lock ./
+# Copy entire Laravel project
+COPY . .
 
+# Install PHP dependencies
 RUN composer install \
     --no-dev \
     --no-interaction \
     --prefer-dist \
     --optimize-autoloader
 
-# Node dependencies
-COPY package.json package-lock.json ./
-
+# Install frontend dependencies
 RUN npm ci
 
-# Application
-COPY . .
-
-# Build Laravel Vite CSS/JS
+# Build Vite CSS/JS
 RUN npm run build
 
 # Laravel directories
@@ -61,7 +57,8 @@ RUN mkdir -p \
 
 RUN chmod -R 775 storage bootstrap/cache
 
+# Storage link
 RUN php artisan storage:link || true
 
-# Vercel container port
+# Start Laravel with FrankenPHP
 CMD ["sh", "-c", "frankenphp php-server --root /app/public --listen :${PORT:-80}"]

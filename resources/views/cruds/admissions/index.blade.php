@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('receptionist')->check() ? 'users.receptionist.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -6,7 +6,7 @@
         <h4 class="content-title mb-0 my-auto">IPD Patient Admissions</h4>
     </div>
     <div class="d-flex my-xl-auto right-content">
-        <a href="{{ route('admissions.create') }}" class="btn btn-primary"><i class="fa fa-bed"></i> New IPD Admission</a>
+        <a href="{{ auth()->guard('receptionist')->check() ? route('receptionist.admissions.create') : route('admissions.create') }}" class="btn btn-primary"><i class="fa fa-bed"></i> New IPD Admission</a>
     </div>
 </div>
 
@@ -51,7 +51,9 @@
                             <td>
                                 @if($adm->status == 'admitted')
                                     <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#transferModal{{ $adm->id }}"><i class="fa fa-exchange-alt"></i> Transfer Bed</button>
-                                    <a href="{{ route('discharge_summaries.create', ['admission_id' => $adm->id]) }}" class="btn btn-sm btn-danger"><i class="fa fa-door-open"></i> Discharge</a>
+                                    @if(auth()->guard('admin')->check() || auth()->guard('doctor')->check())
+                                        <a href="{{ route('discharge_summaries.create', ['admission_id' => $adm->id]) }}" class="btn btn-sm btn-danger"><i class="fa fa-door-open"></i> Discharge</a>
+                                    @endif
                                 @endif
                             </td>
                         </tr>
@@ -59,7 +61,7 @@
                         <!-- Transfer Modal -->
                         <div class="modal fade" id="transferModal{{ $adm->id }}" tabindex="-1">
                             <div class="modal-dialog">
-                                <form action="{{ route('admissions.transfer', $adm->id) }}" method="POST" class="modal-content">
+                                <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.admissions.transfer', $adm->id) : route('admissions.transfer', $adm->id) }}" method="POST" class="modal-content">
                                     @csrf
                                     <div class="modal-header"><h5 class="modal-title">Transfer Patient Bed</h5></div>
                                     <div class="modal-body text-left">

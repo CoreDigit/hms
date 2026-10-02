@@ -14,9 +14,9 @@ class SingleServiceController extends Controller
 {
     public function index()
     {
-        $singleServices = match (auth()->guard()->name) {
-            'admin' => SingleService::latest()->get(),
+        $singleServices = match (activeGuard()) {
             'patient' => SingleService::active()->latest()->get(),
+            default => SingleService::latest()->get(),
         };
         return view('cruds.single-services.index', compact('singleServices'));
     }

@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('receptionist')->check() ? 'users.receptionist.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -90,7 +90,7 @@
 <!-- Add Ward Modal -->
 <div class="modal fade" id="addWardModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('wards.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.wards.store') : route('wards.store') }}" method="POST" class="modal-content">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Create New Ward</h5></div>
             <div class="modal-body">
@@ -128,7 +128,7 @@
 <!-- Add Bed Modal -->
 <div class="modal fade" id="addBedModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('beds.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.beds.store') : route('beds.store') }}" method="POST" class="modal-content">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Add Bed to Ward</h5></div>
             <div class="modal-body">
@@ -170,8 +170,9 @@
         e.preventDefault();
         var bedId = $(this).data('id');
         var status = $(this).data('status');
+        var statusUrl = '{{ auth()->guard("receptionist")->check() ? "/en/receptionist/beds/" : "/en/admin/beds/" }}' + bedId + '/status';
         $.ajax({
-            url: '/admin/beds/' + bedId + '/status',
+            url: statusUrl,
             type: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',

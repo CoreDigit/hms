@@ -81,7 +81,7 @@
         <div class="card card-dashboard-map-one">
             <label class="main-content-label text-primary">Quick Actions</label>
             <div class="d-flex flex-wrap gap-2 mt-3">
-                <a href="{{ route('patients.create') }}" class="btn btn-primary m-1"><i class="fa fa-user-plus mr-1"></i> Register New Patient</a>
+                <a href="{{ route('receptionist.patients.create') }}" class="btn btn-primary m-1"><i class="fa fa-user-plus mr-1"></i> Register New Patient</a>
                 <a href="{{ route('receptionist.opd_tokens.create') }}" class="btn btn-danger m-1"><i class="fa fa-ticket-alt mr-1"></i> Issue OPD Token</a>
                 <a href="{{ route('receptionist.admissions.create') }}" class="btn btn-warning m-1"><i class="fa fa-bed mr-1"></i> IPD Admission</a>
                 <a href="{{ route('receptionist.opd_tokens.queue') }}" target="_blank" class="btn btn-info m-1"><i class="fa fa-desktop mr-1"></i> Open Queue Screen</a>

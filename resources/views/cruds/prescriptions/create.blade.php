@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends('users.' . activeGuard() . '.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<form action="{{ route('prescriptions.store') }}" method="POST">
+<form action="{{ auth()->guard('doctor')->check() ? route('doctor.prescriptions.store') : route('prescriptions.store') }}" method="POST">
     @csrf
     <div class="row">
         <div class="col-md-4">

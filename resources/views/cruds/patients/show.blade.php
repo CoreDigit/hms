@@ -1,4 +1,4 @@
-@extends('users.' . auth()->guard()->name . '.layouts.master')
+@extends('users.' . activeGuard() . '.layouts.master')
 
 @extends('cruds.layouts.show')
 

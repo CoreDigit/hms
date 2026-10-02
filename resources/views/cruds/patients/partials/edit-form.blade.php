@@ -1,4 +1,4 @@
-<form action="{{ auth()->guard('patient')->check()? route('patient.update'): route('patients.update', $patient->id) }}"
+<form action="{{ auth()->guard('patient')->check() ? route('patient.update') : (auth()->guard('receptionist')->check() ? route('receptionist.patients.update', $patient->id) : route('patients.update', $patient->id)) }}"
     method="POST" autocomplete="off" enctype="multipart/form-data">
     @csrf
     @method('PUT')

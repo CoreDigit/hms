@@ -8,6 +8,17 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\URL;
 
+if (!function_exists('activeGuard')) {
+    function activeGuard(): string {
+        foreach (['admin', 'doctor', 'patient', 'receptionist', 'nurse', 'accountant', 'pharmacist', 'labEmployee', 'rayEmployee'] as $guard) {
+            if (auth()->guard($guard)->check()) {
+                return $guard;
+            }
+        }
+        return 'admin';
+    }
+}
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,8 +35,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        if (app()->environment('production') || isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+        if (app()->environment('production')) {
             URL::forceScheme('https');
         }
     }
 }
+

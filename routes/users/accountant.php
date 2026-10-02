@@ -19,20 +19,21 @@ Route::group([
     Route::group([
         'prefix' => 'accountant',
         'middleware' => 'auth:accountant',
+        'as' => 'accountant.',
     ], function () {
-        Route::get('dashboard', [AccountantLoginController::class, 'index'])->name('accountant.dashboard');
-        Route::post('logout', [AccountantLoginController::class, 'destroy'])->name('accountant.logout');
+        Route::get('dashboard', [AccountantLoginController::class, 'index'])->name('dashboard');
+        Route::post('logout', [AccountantLoginController::class, 'destroy'])->name('logout');
 
         // Expenses & Cash Closing
-        Route::get('expenses', [ExpenseController::class, 'index'])->name('accountant.expenses.index');
-        Route::post('expenses', [ExpenseController::class, 'storeExpense'])->name('accountant.expenses.store');
-        Route::post('expense-categories', [ExpenseController::class, 'storeCategory'])->name('accountant.expenses.category.store');
-        Route::get('cash-closing', [ExpenseController::class, 'cashClosingIndex'])->name('accountant.cash_closing.index');
-        Route::post('cash-closing', [ExpenseController::class, 'storeCashClosing'])->name('accountant.cash_closing.store');
+        Route::get('expenses', [ExpenseController::class, 'index'])->name('expenses.index');
+        Route::post('expenses', [ExpenseController::class, 'storeExpense'])->name('expenses.store');
+        Route::post('expense-categories', [ExpenseController::class, 'storeCategory'])->name('expenses.category.store');
+        Route::get('cash-closing', [ExpenseController::class, 'cashClosingIndex'])->name('cash_closing.index');
+        Route::post('cash-closing', [ExpenseController::class, 'storeCashClosing'])->name('cash_closing.store');
 
         // Invoices & Payments
-        Route::get('invoices', [InvoiceController::class, 'index'])->name('accountant.invoices.index');
-        Route::get('payments', [PaymentController::class, 'index'])->name('accountant.payments.index');
-        Route::get('receipts', [ReceiptController::class, 'index'])->name('accountant.receipts.index');
+        Route::get('invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+        Route::get('payments', [PaymentController::class, 'index'])->name('payments.index');
+        Route::get('receipts', [ReceiptController::class, 'index'])->name('receipts.index');
     });
 });

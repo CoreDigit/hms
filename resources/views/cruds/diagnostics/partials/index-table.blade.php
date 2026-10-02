@@ -21,9 +21,9 @@
                 @php
                     $doctorRoute = auth()->guard('admin')->check() ? 
                         route('doctors.show', $diagnostic->doctor->id) : '';
-                    $patientRoute = match (auth()->guard()->name) {
-                        'admin' => route('patients.show', $diagnostic->patient->id),
+                    $patientRoute = match (activeGuard()) {
                         'doctor' => route('doctor.patients.show', $diagnostic->patient->id),
+                        default => route('patients.show', $diagnostic->patient->id),
                     };
                     $color = match ($diagnostic->status) {
                         'pending' => 'danger',

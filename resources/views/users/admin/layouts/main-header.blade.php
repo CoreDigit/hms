@@ -211,13 +211,28 @@
             </div>
         </div>
 
-        @if(Auth::guard('admin')->check())
-            <a class="dropdown-item" href="{{ route('admin.show') }}">
-                <i class="bx bx-user-circle"></i>{{ __('general.words.profile') }}
-            </a>
-        @endif
+        @php
+            $logoutRoute = route('logout');
+            if (auth()->guard('receptionist')->check()) {
+                $logoutRoute = route('receptionist.logout');
+            } elseif (auth()->guard('nurse')->check()) {
+                $logoutRoute = route('nurse.logout');
+            } elseif (auth()->guard('accountant')->check()) {
+                $logoutRoute = route('accountant.logout');
+            } elseif (auth()->guard('pharmacist')->check()) {
+                $logoutRoute = route('pharmacist.logout');
+            } elseif (auth()->guard('doctor')->check()) {
+                $logoutRoute = route('doctor.logout');
+            } elseif (auth()->guard('patient')->check()) {
+                $logoutRoute = route('patient.logout');
+            } elseif (auth()->guard('labEmployee')->check()) {
+                $logoutRoute = route('labEmployee.logout');
+            } elseif (auth()->guard('rayEmployee')->check()) {
+                $logoutRoute = route('rayEmployee.logout');
+            }
+        @endphp
 
-        <form action="{{ route('logout') }}" method="POST">
+        <form action="{{ $logoutRoute }}" method="POST">
             @csrf
             <button class="dropdown-item" type="submit">
                 <i class="bx bx-log-out"></i> {{ __('auth.logout') }}

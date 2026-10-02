@@ -13,10 +13,11 @@ class AppointmentController extends Controller
 {
     public function index($status = 'all')
     {
-        $query = match (auth()->guard()->name) {
-            'admin' => Appointment::query(),
-            'doctor' => $this->getAppointments(auth()->user()),
-            'patient' => $this->getAppointments(auth()->user()),
+        $query = match (activeGuard()) {
+            'admin', 'receptionist' => Appointment::query(),
+            'doctor' => $this->getAppointments(auth()->guard('doctor')->user()),
+            'patient' => $this->getAppointments(auth()->guard('patient')->user()),
+            default => Appointment::query(),
         };
 
         $appointments = match ($status) {

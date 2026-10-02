@@ -14,9 +14,9 @@ class DiagnosticController extends Controller
 {
     public function index($status = 'all')
     {
-        $query = match (auth()->guard()->name) {
-            'admin' => Diagnostic::query(),
-            'doctor' => $this->getDoctorDiagnostics(auth()->user()),
+        $query = match (activeGuard()) {
+            'doctor' => $this->getDoctorDiagnostics(auth()->guard('doctor')->user()),
+            default => Diagnostic::query(),
         };
 
         $diagnostics = match ($status) {

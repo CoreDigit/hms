@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('receptionist')->check() ? 'users.receptionist.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header">Generate Token</div>
             <div class="card-body">
-                <form action="{{ route('opd_tokens.store') }}" method="POST">
+                <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.opd_tokens.store') : route('opd_tokens.store') }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
                         <label>Select Patient <span class="text-danger">*</span></label>

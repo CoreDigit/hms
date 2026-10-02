@@ -12,7 +12,7 @@
     <li class="side-item side-item-category">Reception Desk</li>
 
     <li class="slide">
-        <a class="side-menu__item" href="{{ route('patients.index') }}">
+        <a class="side-menu__item" href="{{ route('receptionist.patients.index') }}">
             <i class="fe fe-user-plus side-menu__icon"></i>
             <span class="side-menu__label">Patient Registration</span>
         </a>

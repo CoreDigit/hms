@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('nurse')->check() ? 'users.nurse.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -16,7 +16,7 @@
         <div class="card">
             <div class="card-header bg-primary text-white">Record Patient Vitals</div>
             <div class="card-body">
-                <form action="{{ route('nurse_vitals.store') }}" method="POST">
+                <form action="{{ auth()->guard('nurse')->check() ? route('nurse.vitals.store') : route('nurse_vitals.store') }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
                         <label>Select Patient <span class="text-danger">*</span></label>

@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends('users.' . activeGuard() . '.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header bg-primary text-white">Discharge Medical Certificate & Summary Form</div>
             <div class="card-body">
-                <form action="{{ route('discharge_summaries.store') }}" method="POST">
+                <form action="{{ auth()->guard('doctor')->check() ? route('doctor.discharge_summaries.store') : route('discharge_summaries.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">

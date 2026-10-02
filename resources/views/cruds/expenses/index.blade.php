@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('accountant')->check() ? 'users.accountant.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -26,7 +26,7 @@
 
 <div class="card">
     <div class="card-header pb-0">
-        <form method="GET" action="{{ route('expenses.index') }}" class="row">
+        <form method="GET" action="{{ auth()->guard('accountant')->check() ? route('accountant.expenses.index') : route('expenses.index') }}" class="row">
             <div class="col-md-4">
                 <label>Filter Date</label>
                 <input type="date" name="date" class="form-control" value="{{ $date }}">
@@ -74,7 +74,7 @@
 <!-- Add Expense Modal -->
 <div class="modal fade" id="addExpenseModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('expenses.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()->guard('accountant')->check() ? route('accountant.expenses.store') : route('expenses.store') }}" method="POST" class="modal-content">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Log Hospital Expense</h5></div>
             <div class="modal-body">
@@ -130,7 +130,7 @@
 <!-- Add Category Modal -->
 <div class="modal fade" id="addCatModal" tabindex="-1">
     <div class="modal-dialog modal-sm">
-        <form action="{{ route('expenses.category.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()->guard('accountant')->check() ? route('accountant.expenses.category.store') : route('expenses.category.store') }}" method="POST" class="modal-content">
             @csrf
             <div class="modal-header"><h5 class="modal-title">New Expense Category</h5></div>
             <div class="modal-body">

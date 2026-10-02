@@ -17,15 +17,15 @@
         <tbody>
             @foreach ($appointments as $appointment)
                 @php
-                    $doctorRoute = match (auth()->guard()->name) {
-                        'admin' => route('doctors.show', $appointment->doctor->id),
+                    $doctorRoute = match (activeGuard()) {
                         'patient' => route('patient.doctors.show', $appointment->doctor->id),
                         'doctor' => route('doctor.show'),
+                        default => route('doctors.show', $appointment->doctor->id),
                     };
-                    $patientRoute = match (auth()->guard()->name) {
-                        'admin' => route('patients.show', $appointment->patient->id),
+                    $patientRoute = match (activeGuard()) {
                         'doctor' => route('doctor.patients.show', $appointment->patient->id),
                         'patient' => route('patient.show'),
+                        default => route('patients.show', $appointment->patient->id),
                     };
                     $color = match ($appointment->status) {
                         'pending' => 'danger',

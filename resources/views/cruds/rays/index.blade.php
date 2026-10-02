@@ -1,4 +1,4 @@
-@extends(auth()->guard('admin')->check() ? 'users.admin.layouts.master' : 'users.rayEmployee.layouts.master')
+@extends('users.' . activeGuard() . '.layouts.master')
 
 @extends('cruds.layouts.index')
 

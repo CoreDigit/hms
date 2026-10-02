@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('pharmacist')->check() ? 'users.pharmacist.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -6,7 +6,7 @@
         <h4 class="content-title mb-0 my-auto">Pharmacy Sales Invoices</h4>
     </div>
     <div class="d-flex my-xl-auto right-content">
-        <a href="{{ route('pharmacy.pos') }}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> New Pharmacy Sale</a>
+        <a href="{{ auth()->guard('pharmacist')->check() ? route('pharmacist.pos') : route('pharmacy.pos') }}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> New Pharmacy Sale</a>
     </div>
 </div>
 
@@ -35,7 +35,7 @@
                             <td><b class="text-success tx-16">₹{{ number_format($inv->net_amount, 2) }}</b></td>
                             <td><span class="badge badge-success">PAID</span></td>
                             <td>
-                                <a href="{{ route('pharmacy.invoices.print', $inv->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-print"></i> Print Invoice</a>
+                                <a href="{{ auth()->guard('pharmacist')->check() ? route('pharmacist.invoices.print', $inv->id) : route('pharmacy.invoices.print', $inv->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-print"></i> Print Invoice</a>
                             </td>
                         </tr>
                     @empty

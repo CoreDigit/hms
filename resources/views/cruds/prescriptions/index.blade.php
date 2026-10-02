@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends('users.' . activeGuard() . '.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">

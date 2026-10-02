@@ -16,18 +16,19 @@ Route::group([
     Route::group([
         'prefix' => 'pharmacist',
         'middleware' => 'auth:pharmacist',
+        'as' => 'pharmacist.',
     ], function () {
-        Route::get('dashboard', [PharmacistLoginController::class, 'index'])->name('pharmacist.dashboard');
-        Route::post('logout', [PharmacistLoginController::class, 'destroy'])->name('pharmacist.logout');
+        Route::get('dashboard', [PharmacistLoginController::class, 'index'])->name('dashboard');
+        Route::post('logout', [PharmacistLoginController::class, 'destroy'])->name('logout');
 
         // Medicines Stock
-        Route::get('medicines', [PharmacyController::class, 'medicinesIndex'])->name('pharmacist.medicines.index');
-        Route::post('medicines', [PharmacyController::class, 'storeMedicine'])->name('pharmacist.medicines.store');
+        Route::get('medicines', [PharmacyController::class, 'medicinesIndex'])->name('medicines.index');
+        Route::post('medicines', [PharmacyController::class, 'storeMedicine'])->name('medicines.store');
 
         // Pharmacy POS Billing
-        Route::get('pos', [PharmacyController::class, 'pos'])->name('pharmacist.pos');
-        Route::post('pos/invoice', [PharmacyController::class, 'storeInvoice'])->name('pharmacist.pos.store');
-        Route::get('invoices', [PharmacyController::class, 'invoicesIndex'])->name('pharmacist.invoices.index');
-        Route::get('invoices/{id}/print', [PharmacyController::class, 'printInvoice'])->name('pharmacist.invoices.print');
+        Route::get('pos', [PharmacyController::class, 'pos'])->name('pos');
+        Route::post('pos/invoice', [PharmacyController::class, 'storeInvoice'])->name('pos.store');
+        Route::get('invoices', [PharmacyController::class, 'invoicesIndex'])->name('invoices.index');
+        Route::get('invoices/{id}/print', [PharmacyController::class, 'printInvoice'])->name('invoices.print');
     });
 });

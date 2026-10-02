@@ -1,4 +1,4 @@
-<form action="{{ route('patients.store') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+<form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.patients.store') : route('patients.store') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
     @csrf
 
     <div class="row row-xs align-items-center mg-b-20">

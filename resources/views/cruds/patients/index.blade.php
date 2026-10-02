@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends('users.' . activeGuard() . '.layouts.master')
 
 @extends('cruds.layouts.index')
 
@@ -8,7 +8,7 @@
 
 @section('card-handle')
     @if (auth()->guard('admin')->check() || auth()->guard('receptionist')->check())
-        <a href="{{ route('patients.create') }}" class="btn btn-primary">{{ __('handle.create') }}</a>
+        <a href="{{ auth()->guard('receptionist')->check() ? route('receptionist.patients.create') : route('patients.create') }}" class="btn btn-primary">{{ __('handle.create') }}</a>
     @endif
 @endsection
 

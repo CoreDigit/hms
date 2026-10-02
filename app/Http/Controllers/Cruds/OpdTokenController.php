@@ -92,7 +92,8 @@ class OpdTokenController extends Controller
             'ip_address' => $request->ip(),
         ]);
 
-        return redirect()->route('opd_tokens.print', $token->id)
+        $printRoute = auth()->guard('receptionist')->check() ? 'receptionist.opd_tokens.print' : 'opd_tokens.print';
+        return redirect()->route($printRoute, $token->id)
             ->with('success', "OPD Token #{$newTokenNumber} generated successfully!");
     }
 

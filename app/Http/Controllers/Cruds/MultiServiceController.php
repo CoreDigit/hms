@@ -11,9 +11,9 @@ class MultiServiceController extends Controller
 {
     public function index()
     {
-        $multiServices = match(auth()->guard()->name) {
-            'admin' => MultiService::latest()->get(),
+        $multiServices = match (activeGuard()) {
             'patient' => MultiService::active()->latest()->get(),
+            default => MultiService::latest()->get(),
         };
         return view('cruds.multi-services.index', compact('multiServices'));
     }

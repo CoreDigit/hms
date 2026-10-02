@@ -149,7 +149,8 @@ class PharmacyController extends Controller
 
             DB::commit();
 
-            return redirect()->route('pharmacy.invoices.print', $invoice->id)
+            $printRoute = auth()->guard('pharmacist')->check() ? 'pharmacist.invoices.print' : 'pharmacy.invoices.print';
+            return redirect()->route($printRoute, $invoice->id)
                 ->with('success', 'Pharmacy Sale completed successfully!');
         } catch (\Exception $e) {
             DB::rollBack();

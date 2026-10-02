@@ -18,17 +18,18 @@ Route::group([
     Route::group([
         'prefix' => 'nurse',
         'middleware' => 'auth:nurse',
+        'as' => 'nurse.',
     ], function () {
-        Route::get('dashboard', [NurseLoginController::class, 'index'])->name('nurse.dashboard');
-        Route::post('logout', [NurseLoginController::class, 'destroy'])->name('nurse.logout');
+        Route::get('dashboard', [NurseLoginController::class, 'index'])->name('dashboard');
+        Route::post('logout', [NurseLoginController::class, 'destroy'])->name('logout');
 
         // Nurse Vitals & Notes
-        Route::get('vitals', [NurseWorkflowController::class, 'index'])->name('nurse.vitals.index');
-        Route::post('vitals', [NurseWorkflowController::class, 'storeVitals'])->name('nurse.vitals.store');
-        Route::post('notes', [NurseWorkflowController::class, 'storeNote'])->name('nurse.notes.store');
+        Route::get('vitals', [NurseWorkflowController::class, 'index'])->name('vitals.index');
+        Route::post('vitals', [NurseWorkflowController::class, 'storeVitals'])->name('vitals.store');
+        Route::post('notes', [NurseWorkflowController::class, 'storeNote'])->name('notes.store');
 
         // IPD Beds & Ward view
-        Route::get('beds', [BedController::class, 'index'])->name('nurse.beds.index');
-        Route::get('admissions', [AdmissionController::class, 'index'])->name('nurse.admissions.index');
+        Route::get('beds', [BedController::class, 'index'])->name('beds.index');
+        Route::get('admissions', [AdmissionController::class, 'index'])->name('admissions.index');
     });
 });

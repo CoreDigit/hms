@@ -20,24 +20,31 @@ Route::group([
     Route::group([
         'prefix' => 'receptionist',
         'middleware' => 'auth:receptionist',
+        'as' => 'receptionist.',
     ], function () {
-        Route::get('dashboard', [ReceptionistLoginController::class, 'index'])->name('receptionist.dashboard');
-        Route::post('logout', [ReceptionistLoginController::class, 'destroy'])->name('receptionist.logout');
+        Route::get('dashboard', [ReceptionistLoginController::class, 'index'])->name('dashboard');
+        Route::post('logout', [ReceptionistLoginController::class, 'destroy'])->name('logout');
 
         // Patients & Registration
         Route::resource('patients', PatientController::class);
 
         // OPD Queue & Tokens
-        Route::get('opd-tokens', [OpdTokenController::class, 'index'])->name('receptionist.opd_tokens.index');
-        Route::get('opd-tokens/create', [OpdTokenController::class, 'create'])->name('receptionist.opd_tokens.create');
-        Route::post('opd-tokens', [OpdTokenController::class, 'store'])->name('receptionist.opd_tokens.store');
-        Route::get('opd-tokens/queue', [OpdTokenController::class, 'queueScreen'])->name('receptionist.opd_tokens.queue');
-        Route::get('opd-tokens/{id}/print', [OpdTokenController::class, 'printSlip'])->name('receptionist.opd_tokens.print');
+        Route::get('opd-tokens', [OpdTokenController::class, 'index'])->name('opd_tokens.index');
+        Route::get('opd-tokens/create', [OpdTokenController::class, 'create'])->name('opd_tokens.create');
+        Route::post('opd-tokens', [OpdTokenController::class, 'store'])->name('opd_tokens.store');
+        Route::post('opd-tokens/{id}/status', [OpdTokenController::class, 'updateStatus'])->name('opd_tokens.status');
+        Route::get('opd-tokens/queue', [OpdTokenController::class, 'queueScreen'])->name('opd_tokens.queue');
+        Route::get('opd-tokens/{id}/print', [OpdTokenController::class, 'printSlip'])->name('opd_tokens.print');
 
         // IPD Admissions & Beds
-        Route::get('admissions', [AdmissionController::class, 'index'])->name('receptionist.admissions.index');
-        Route::get('admissions/create', [AdmissionController::class, 'create'])->name('receptionist.admissions.create');
-        Route::post('admissions', [AdmissionController::class, 'store'])->name('receptionist.admissions.store');
-        Route::get('beds', [BedController::class, 'index'])->name('receptionist.beds.index');
+        Route::get('admissions', [AdmissionController::class, 'index'])->name('admissions.index');
+        Route::get('admissions/create', [AdmissionController::class, 'create'])->name('admissions.create');
+        Route::post('admissions', [AdmissionController::class, 'store'])->name('admissions.store');
+        Route::post('admissions/{id}/discharge', [AdmissionController::class, 'discharge'])->name('admissions.discharge');
+        Route::post('admissions/{id}/transfer', [AdmissionController::class, 'transfer'])->name('admissions.transfer');
+        Route::get('beds', [BedController::class, 'index'])->name('beds.index');
+        Route::post('beds/{id}/status', [BedController::class, 'updateStatus'])->name('beds.status');
+        Route::post('wards', [BedController::class, 'storeWard'])->name('wards.store');
+        Route::post('beds', [BedController::class, 'storeBed'])->name('beds.store');
     });
 });

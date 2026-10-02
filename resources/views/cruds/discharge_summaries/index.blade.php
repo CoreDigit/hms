@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends('users.' . activeGuard() . '.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -6,7 +6,7 @@
         <h4 class="content-title mb-0 my-auto">Discharge Summaries</h4>
     </div>
     <div class="d-flex my-xl-auto right-content">
-        <a href="{{ route('discharge_summaries.create') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Create Discharge Summary</a>
+        <a href="{{ auth()->guard('doctor')->check() ? route('doctor.discharge_summaries.create') : route('discharge_summaries.create') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Create Discharge Summary</a>
     </div>
 </div>
 

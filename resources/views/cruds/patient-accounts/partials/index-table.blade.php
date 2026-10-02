@@ -29,9 +29,9 @@
                         $color = '';
                         $sign = '';
                     }
-                    $route = match (auth()->guard()->name) {
-                        'admin' => route('patient-accounts.show', $patientAccount->id),
+                    $route = match (activeGuard()) {
                         'patient' => route('patient.accounts.show', $patientAccount->id),
+                        default => route('patient-accounts.show', $patientAccount->id),
                     };
                 @endphp
 

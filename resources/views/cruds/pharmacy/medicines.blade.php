@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('pharmacist')->check() ? 'users.pharmacist.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -7,7 +7,7 @@
     </div>
     <div class="d-flex my-xl-auto right-content">
         <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#addMedModal"><i class="fa fa-plus"></i> Add New Medicine</button>
-        <a href="{{ route('pharmacy.pos') }}" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Open Pharmacy POS</a>
+        <a href="{{ auth()->guard('pharmacist')->check() ? route('pharmacist.pos') : route('pharmacy.pos') }}" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Open Pharmacy POS</a>
     </div>
 </div>
 
@@ -17,7 +17,7 @@
 
 <div class="card">
     <div class="card-header pb-0">
-        <form method="GET" action="{{ route('pharmacy.medicines.index') }}" class="row">
+        <form method="GET" action="{{ auth()->guard('pharmacist')->check() ? route('pharmacist.medicines.index') : route('pharmacy.medicines.index') }}" class="row">
             <div class="col-md-5">
                 <input type="text" name="search" class="form-control" placeholder="Search medicine name or generic name..." value="{{ $search }}">
             </div>
@@ -58,23 +58,13 @@
                             <td>{{ $med->batch_number ?? '-' }}</td>
                             <td>₹{{ number_format($med->unit_price, 2) }}</td>
                             <td>
-                                @if($med->stock_quantity <= $med->reorder_level)
-                                    <span class="badge badge-danger p-2">{{ $med->stock_quantity }} (LOW STOCK)</span>
-                                @else
-                                    <span class="badge badge-success p-2">{{ $med->stock_quantity }}</span>
-                                @endif
+                                <span class="badge {{ $med->stock_quantity <= 10 ? 'badge-danger' : 'badge-success' }} tx-14 p-2">{{ $med->stock_quantity }}</span>
                             </td>
-                            <td>{{ $med->expiry_date ?? '-' }}</td>
-                            <td>
-                                @if($med->is_active)
-                                    <span class="badge badge-primary">Active</span>
-                                @else
-                                    <span class="badge badge-secondary">Disabled</span>
-                                @endif
-                            </td>
+                            <td>{{ $med->expiry_date ?? 'N/A' }}</td>
+                            <td><span class="badge badge-success">ACTIVE</span></td>
                         </tr>
                     @empty
-                        <tr><td colspan="8">No medicines found.</td></tr>
+                        <tr><td colspan="8">No medicines found in stock.</td></tr>
                     @endforelse
                 </tbody>
             </table>
@@ -86,49 +76,49 @@
 <!-- Add Medicine Modal -->
 <div class="modal fade" id="addMedModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('pharmacy.medicines.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()->guard('pharmacist')->check() ? route('pharmacist.medicines.store') : route('pharmacy.medicines.store') }}" method="POST" class="modal-content">
             @csrf
-            <div class="modal-header"><h5 class="modal-title">Add Medicine to Pharmacy Stock</h5></div>
+            <div class="modal-header"><h5 class="modal-title">Add Medicine to Inventory</h5></div>
             <div class="modal-body">
                 <div class="form-group mb-2">
-                    <label>Medicine Brand Name <span class="text-danger">*</span></label>
-                    <input type="text" name="name" class="form-control" required placeholder="e.g. Paracetamol 650mg">
+                    <label>Medicine Name <span class="text-danger">*</span></label>
+                    <input type="text" name="name" class="form-control" required placeholder="e.g. Paracetamol 500mg">
                 </div>
                 <div class="form-group mb-2">
-                    <label>Generic Chemical Name</label>
+                    <label>Generic Name</label>
                     <input type="text" name="generic_name" class="form-control" placeholder="e.g. Acetaminophen">
                 </div>
-                <div class="form-group mb-2">
-                    <label>Category <span class="text-danger">*</span></label>
-                    <select name="category_id" class="form-control" required>
-                        @foreach($categories as $cat)
-                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
                 <div class="row">
                     <div class="col-6 form-group mb-2">
-                        <label>Unit Selling Price (₹)</label>
-                        <input type="number" step="0.01" name="unit_price" class="form-control" required placeholder="10.00">
+                        <label>Category</label>
+                        <select name="medicine_category_id" class="form-control">
+                            @foreach($categories as $c)
+                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="col-6 form-group mb-2">
-                        <label>Initial Stock Qty</label>
-                        <input type="number" name="stock_quantity" class="form-control" required placeholder="100">
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-6 form-group mb-2">
                         <label>Batch Number</label>
-                        <input type="text" name="batch_number" class="form-control" placeholder="B-2026-01">
+                        <input type="text" name="batch_number" class="form-control" placeholder="BATCH-2026-X">
                     </div>
-                    <div class="col-6 form-group mb-2">
+                </div>
+                <div class="row">
+                    <div class="col-4 form-group mb-2">
+                        <label>Unit Price (₹) <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" name="unit_price" class="form-control" required value="15.00">
+                    </div>
+                    <div class="col-4 form-group mb-2">
+                        <label>Stock Qty <span class="text-danger">*</span></label>
+                        <input type="number" name="stock_quantity" class="form-control" required value="100">
+                    </div>
+                    <div class="col-4 form-group mb-2">
                         <label>Expiry Date</label>
                         <input type="date" name="expiry_date" class="form-control">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Add Medicine</button>
+                <button type="submit" class="btn btn-primary">Save Stock</button>
             </div>
         </form>
     </div>

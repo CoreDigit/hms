@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('receptionist')->check() ? 'users.receptionist.layouts.master' : (auth()->guard('doctor')->check() ? 'users.doctor.layouts.master' : 'users.admin.layouts.master'))
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -6,8 +6,10 @@
         <h4 class="content-title mb-0 my-auto">OPD Token Queue Management</h4>
     </div>
     <div class="d-flex my-xl-auto right-content">
-        <a href="{{ route('opd_tokens.create') }}" class="btn btn-primary mr-2"><i class="fa fa-plus-circle"></i> Generate Token</a>
-        <a href="{{ route('opd_tokens.queue') }}" target="_blank" class="btn btn-warning"><i class="fa fa-desktop"></i> Live Queue Board</a>
+        @if(auth()->guard('receptionist')->check() || auth()->guard('admin')->check())
+            <a href="{{ auth()->guard('receptionist')->check() ? route('receptionist.opd_tokens.create') : route('opd_tokens.create') }}" class="btn btn-primary mr-2"><i class="fa fa-plus-circle"></i> Generate Token</a>
+        @endif
+        <a href="{{ auth()->guard('receptionist')->check() ? route('receptionist.opd_tokens.queue') : route('opd_tokens.queue') }}" target="_blank" class="btn btn-warning"><i class="fa fa-desktop"></i> Live Queue Board</a>
     </div>
 </div>
 
@@ -19,7 +21,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header pb-0">
-                <form method="GET" action="{{ route('opd_tokens.index') }}" class="row">
+                <form method="GET" action="{{ auth()->guard('receptionist')->check() ? route('receptionist.opd_tokens.index') : (auth()->guard('doctor')->check() ? route('doctor.opd_tokens.index') : route('opd_tokens.index')) }}" class="row">
                     <div class="col-md-3">
                         <label>Filter Date</label>
                         <input type="date" name="date" class="form-control" value="{{ $date }}">
@@ -89,7 +91,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <a href="{{ route('opd_tokens.print', $token->id) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-print"></i> Print Slip</a>
+                                        <a href="{{ auth()->guard('receptionist')->check() ? route('receptionist.opd_tokens.print', $token->id) : route('opd_tokens.print', $token->id) }}" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-print"></i> Print Slip</a>
                                     </td>
                                 </tr>
                             @empty
@@ -111,8 +113,9 @@
     $(document).on('change', '.token-status-select', function() {
         var tokenId = $(this).data('id');
         var newStatus = $(this).val();
+        var statusUrl = '{{ auth()->guard("receptionist")->check() ? route("receptionist.opd_tokens.index") : (auth()->guard("doctor")->check() ? route("doctor.opd_tokens.index") : route("opd_tokens.index")) }}/' + tokenId + '/status';
         $.ajax({
-            url: '/admin/opd-tokens/' + tokenId + '/status',
+            url: statusUrl,
             type: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',

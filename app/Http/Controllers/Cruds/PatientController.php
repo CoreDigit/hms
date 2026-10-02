@@ -48,7 +48,8 @@ class PatientController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('patients.index')->with('created', __('validation.created'));
+            $patientRoute = auth()->guard('receptionist')->check() ? 'receptionist.patients.index' : 'patients.index';
+            return redirect()->route($patientRoute)->with('created', __('validation.created'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('create_error', __('validation.create_error'));
@@ -101,7 +102,8 @@ class PatientController extends Controller
             }
 
             DB::commit();
-            return redirect()->route(auth()->guard('patient')->check() ? 'patient.show' : 'patients.index')->with('updated', __('validation.updated'));
+            $patientRoute = auth()->guard('receptionist')->check() ? 'receptionist.patients.index' : (auth()->guard('patient')->check() ? 'patient.show' : 'patients.index');
+            return redirect()->route($patientRoute)->with('updated', __('validation.updated'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('update_error', __('validation.update_error'));
@@ -126,7 +128,8 @@ class PatientController extends Controller
         }
         if (Hash::check($request->last_password, auth()->user()->password)) {
             $patient->delete();
-            return redirect()->route('patients.index')->with('deleted', __('validation.deleted'));
+            $patientRoute = auth()->guard('receptionist')->check() ? 'receptionist.patients.index' : 'patients.index';
+            return redirect()->route($patientRoute)->with('deleted', __('validation.deleted'));
         }
         return redirect()->back()->with('password_error', __('validation.password_error'));
     }

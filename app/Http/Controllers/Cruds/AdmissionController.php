@@ -78,7 +78,8 @@ class AdmissionController extends Controller
             'ip_address' => $request->ip(),
         ]);
 
-        return redirect()->route('admissions.index')->with('success', 'Patient admitted successfully!');
+        $admRoute = auth()->guard('receptionist')->check() ? 'receptionist.admissions.index' : 'admissions.index';
+        return redirect()->route($admRoute)->with('success', 'Patient admitted successfully!');
     }
 
     public function transfer(Request $request, $id)
@@ -137,6 +138,7 @@ class AdmissionController extends Controller
         $admission->discharge_reason = $request->discharge_reason ?? 'Normal Discharge';
         $admission->save();
 
-        return redirect()->route('admissions.index')->with('success', 'Patient marked as discharged!');
+        $admRoute = auth()->guard('receptionist')->check() ? 'receptionist.admissions.index' : 'admissions.index';
+        return redirect()->route($admRoute)->with('success', 'Patient marked as discharged!');
     }
 }

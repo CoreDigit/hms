@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('pharmacist')->check() ? 'users.pharmacist.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -11,7 +11,7 @@
     <div class="alert alert-danger">{{ $errors->first() }}</div>
 @endif
 
-<form action="{{ route('pharmacy.pos.store') }}" method="POST">
+<form action="{{ auth()->guard('pharmacist')->check() ? route('pharmacist.pos.store') : route('pharmacy.pos.store') }}" method="POST">
     @csrf
     <div class="row">
         <div class="col-md-7">

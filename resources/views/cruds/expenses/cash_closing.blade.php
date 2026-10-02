@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('accountant')->check() ? 'users.accountant.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -19,7 +19,7 @@
         <div class="card border-primary">
             <div class="card-header bg-primary text-white font-weight-bold">Today's Live Cash Register Summary ({{ $today }})</div>
             <div class="card-body">
-                <form action="{{ route('cash_closing.store') }}" method="POST">
+                <form action="{{ auth()->guard('accountant')->check() ? route('accountant.cash_closing.store') : route('cash_closing.store') }}" method="POST">
                     @csrf
                     <div class="table-responsive">
                         <table class="table table-bordered">

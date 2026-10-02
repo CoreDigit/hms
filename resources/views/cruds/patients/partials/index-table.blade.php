@@ -7,7 +7,7 @@
                 <th>{{ __('field.name') }}</th>
                 <th>{{ __('field.email') }}</th>
                 <th>{{ __('field.address') }}</th>
-                @if (auth()->guard('admin')->check())
+                @if (auth()->guard('admin')->check() || auth()->guard('receptionist')->check())
                     <th>{{ __('handle.') }}</th>
                 @endif
             </tr>
@@ -22,15 +22,15 @@
                     </td>
                     <td>
                         <a
-                            href="{{ route(auth()->guard('admin')->check()? 'patients.show': 'doctor.patients.show',$patient->id) }}">
+                            href="{{ route(auth()->guard('receptionist')->check() ? 'receptionist.patients.show' : (auth()->guard('doctor')->check() ? 'doctor.patients.show' : 'patients.show'), $patient->id) }}">
                             {{ $patient->name }}
                         </a>
                     </td>
                     <td>{{ $patient->email }}</td>
                     <td>{{ Str::limit($patient->address, 30) }}</td>
-                    @if (auth()->guard('admin')->check())
+                    @if (auth()->guard('admin')->check() || auth()->guard('receptionist')->check())
                         <td>
-                            <a href="{{ route('patients.edit', $patient->id) }}" class="btn btn-sm btn-info"
+                            <a href="{{ auth()->guard('receptionist')->check() ? route('receptionist.patients.edit', $patient->id) : route('patients.edit', $patient->id) }}" class="btn btn-sm btn-info"
                                 title="{{ __('handle.edit') }}">
                                 <i class="las la-pen"></i>
                             </a>

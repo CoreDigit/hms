@@ -1,4 +1,4 @@
-@extends('users.admin.layouts.master')
+@extends(auth()->guard('receptionist')->check() ? 'users.receptionist.layouts.master' : 'users.admin.layouts.master')
 
 @section('content')
 <div class="breadcrumb-header justify-content-between">
@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header">IPD Admission Form</div>
             <div class="card-body">
-                <form action="{{ route('admissions.store') }}" method="POST">
+                <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.admissions.store') : route('admissions.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">

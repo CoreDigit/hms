@@ -1,8 +1,8 @@
 @php
-    $route = match (auth()->guard()->name) {
-        'admin' => route('patients.records', $patient->id),
+    $route = match (activeGuard()) {
         'doctor' => route('doctor.patients.records', $patient->id),
         'patient' => route('patient.records'),
+        default => route('patients.records', $patient->id),
     };
 @endphp
 

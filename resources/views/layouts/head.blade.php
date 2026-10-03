@@ -1,5 +1,6 @@
 <!-- Title -->
 <title> @yield('title') </title>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Favicon -->
 <link rel="icon" href="{{ URL::asset('backend/assets/img/brand/favicon.png') }}" type="image/x-icon" />
 <!-- Icons css -->

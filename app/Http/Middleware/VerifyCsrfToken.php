@@ -23,6 +23,17 @@ class VerifyCsrfToken extends Middleware
         'labEmployee/login',
         'rayEmployee/login',
         'patient/login',
+        'logout',
+        '*/logout',
+        'admin/logout',
+        'receptionist/logout',
+        'doctor/logout',
+        'nurse/logout',
+        'accountant/logout',
+        'pharmacist/logout',
+        'labEmployee/logout',
+        'rayEmployee/logout',
+        'patient/logout',
         '*/register',
     ];
 }

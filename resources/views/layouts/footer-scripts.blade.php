@@ -2,6 +2,13 @@
 <a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
 <!-- JQuery min js -->
 <script src="{{URL::asset('backend/assets/plugins/jquery/jquery.min.js')}}"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 <!-- Bootstrap Bundle js -->
 <script src="{{URL::asset('backend/assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Ionicons js -->

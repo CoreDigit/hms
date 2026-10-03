@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Cruds;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\AdminLoginRequest;
 use App\Models\Cruds\FundAccount;
 use Illuminate\Http\Request;
 
@@ -20,10 +19,8 @@ class FundAccountController extends Controller
         return view('cruds.fund-accounts.show', compact('fundAccount'));
     }
 
-    public function showAll(AdminLoginRequest $request)
+    public function showAll(Request $request)
     {
-        $request->authenticate();
-        $request->session()->regenerate();
         return view('cruds.fund-accounts.show-all');
     }
 

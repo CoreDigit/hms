@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Cruds;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cruds\PaymentRequest;
-use App\Http\Requests\Users\AdminLoginRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Cruds\FundAccount;
 use App\Models\Cruds\PatientAccount;
 use App\Models\Cruds\Payment;
@@ -93,15 +94,22 @@ class PaymentController extends Controller
         }
     }
 
-    public function authDestroy(AdminLoginRequest $request, Payment $payment)
+    public function authDestroy(Request $request, Payment $payment)
     {
-        $request->authenticate();
-        $request->session()->regenerate();
+        $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
+        $user = auth()->user();
+        if (!$user || $user->email !== $request->email || !Hash::check($request->password, $user->password)) {
+            return redirect()->back()->with('delete_error', __('auth.failed'));
+        }
+
         try {
             $payment->delete();
             return redirect()->route('payments.index')->with('deleted', __('validation.deleted'));
         } catch (\Exception $e) {
-            DB::rollBack();
             return redirect()->back()->with('delete_error', __('validation.delete_error'));
         }
     }

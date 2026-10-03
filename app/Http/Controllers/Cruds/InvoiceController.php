@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Cruds;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cruds\InvoiceRequest;
-use App\Http\Requests\Users\AdminLoginRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Cruds\FundAccount;
 use App\Models\Cruds\Invoice;
 use App\Models\Cruds\PatientAccount;
@@ -100,15 +101,22 @@ class InvoiceController extends Controller
         }
     }
 
-    public function authDestroy(AdminLoginRequest $request, Invoice $invoice)
+    public function authDestroy(Request $request, Invoice $invoice)
     {
-        $request->authenticate();
-        $request->session()->regenerate();
+        $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
+        $user = auth()->user();
+        if (!$user || $user->email !== $request->email || !Hash::check($request->password, $user->password)) {
+            return redirect()->back()->with('delete_error', __('auth.failed'));
+        }
+
         try {
             $invoice->delete();
             return redirect()->route('invoices.index')->with('deleted', __('validation.deleted'));
         } catch (\Exception $e) {
-            DB::rollBack();
             return redirect()->back()->with('delete_error', __('validation.delete_error'));
         }
     }

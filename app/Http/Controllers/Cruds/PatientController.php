@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Cruds;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\PasswordRequest;
 use App\Http\Requests\Cruds\PatientRequest;
-use App\Http\Requests\Users\AdminLoginRequest;
 use App\Models\Users\Patient;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
@@ -164,10 +163,8 @@ class PatientController extends Controller
         return view('cruds.patients.records', compact('patient', 'records'));
     }
 
-    public function showAccounts(AdminLoginRequest $request, Patient $patient)
+    public function showAccounts(Request $request, Patient $patient)
     {
-        $request->authenticate();
-        $request->session()->regenerate();
         return view('cruds.patients.show-patient-account', compact('patient'));
     }
 }

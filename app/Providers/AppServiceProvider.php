@@ -35,7 +35,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        if (app()->environment('production')) {
+        if (
+            app()->environment('production') ||
+            request()->header('x-forwarded-proto') === 'https' ||
+            request()->server('HTTPS') === 'on' ||
+            (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
+        ) {
             URL::forceScheme('https');
         }
     }

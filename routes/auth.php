@@ -60,7 +60,13 @@ Route::middleware(['guest:admin,doctor,patient,rayEmployee,labEmployee'])->group
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 });
 
-Route::get('dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard', function () {
+    $guard = activeGuard();
+    if (auth()->guard($guard)->check()) {
+        return redirect()->route($guard . '.dashboard');
+    }
+    return redirect()->route('login');
+})->name('dashboard');
 // Note: I just use this route to redirect to user's dashboard or login page.
 
 /************************ /Mine ************************/

@@ -53,6 +53,11 @@ class DoctorLoginController extends Controller
 
         $request->session()->regenerate();
 
+        $intended = session('url.intended');
+        if ($intended && (str_contains($intended, 'login') || str_contains($intended, 'register'))) {
+            session()->forget('url.intended');
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME['doctor']);
     }
 

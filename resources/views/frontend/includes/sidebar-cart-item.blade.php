@@ -12,8 +12,8 @@
                 <div class="sidebar-info-contents">
                     <div class="content-inner">
                         <div class="logo">
-                            <a href="{{ route('web.index') }}">
-                                <img style="width: 150px" src="{{ asset('frontend/assets/images/logo.png') }}" alt="HMS" />
+                            <a href="{{ route('web.index') }}" style="text-decoration: none;">
+                                <span style="font-size: 26px; font-weight: 800; color: #1a73e8; letter-spacing: 1px;">CoreDigit</span>
                             </a>
                         </div>
                         <div class="content-box">
@@ -32,11 +32,11 @@
                                 </li>
                                 <li>
                                     <span class="icon flaticon-telephone"></span>
-                                    +20 1026264486
+                                    +919274076987
                                 </li>
                                 <li>
                                     <span class="icon flaticon-message-1"></span>
-                                    zyadgamal450@gmail.com
+                                    coredigitsolutions@gmail.com
                                 </li>
                                 <li>
                                     <span class="icon flaticon-timetable"></span>

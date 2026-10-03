@@ -14,7 +14,7 @@ return [
     /*****************************************************************/
 
     'project' => [
-        'name' => 'Hospital Management System',
+        'name' => 'CoreDigit',
         'support_number' => 'Support telephone number',
     ],
 
@@ -72,8 +72,8 @@ return [
         '' => 'Contact',
         'us' => 'Contact Us',
         'address' => [
-            'El Fayoum - Dar El Ramad',
-            'Egypt',
+            'Surat',
+            'Gujarat',
         ],
         'time' => 'Mon to Fri',
         'question' => 'Do you have a Question?',

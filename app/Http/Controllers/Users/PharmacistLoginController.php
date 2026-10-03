@@ -37,6 +37,10 @@ class PharmacistLoginController extends Controller
 
         if (Auth::guard('pharmacist')->attempt($credentials)) {
             $request->session()->regenerate();
+            $intended = session('url.intended');
+            if ($intended && (str_contains($intended, 'login') || str_contains($intended, 'register'))) {
+                session()->forget('url.intended');
+            }
             return redirect()->intended(RouteServiceProvider::HOME['pharmacist'] ?? 'pharmacist/dashboard');
         }
 

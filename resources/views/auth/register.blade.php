@@ -41,11 +41,7 @@
                                 <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
                                     <div class="card-sigin">
                                         <div class="mb-5 d-flex">
-                                            <a href="{{ route('web.index') }}">
-                                                <img src="{{ URL::asset('frontend/images/HMS.png') }}" alt="logo"
-                                                    class="log-favicon ht-40">
-                                            </a>
-                                            <h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">H<span>M</span>S</h1>
+                                            <h1 class="main-logo1 ml-1 mr-0 my-auto tx-28 font-weight-bold text-primary">CoreDigit</h1>
                                         </div>
 
                                         <div class="main-signup-header">

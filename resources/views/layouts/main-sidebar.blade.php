@@ -2,16 +2,18 @@
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar sidebar-scroll">
     <div class="main-sidebar-header active">
-        <a class="desktop-logo logo-light active" href="{{ url('/' . ($page = 'index')) }}"><img
-                src="{{ URL::asset('backend/assets/img/brand/logo.png') }}" class="main-logo" alt="logo"></a>
-        <a class="desktop-logo logo-dark active" href="{{ url('/' . ($page = 'index')) }}"><img
-                src="{{ URL::asset('backend/assets/img/brand/logo-white.png') }}" class="main-logo dark-theme"
-                alt="logo"></a>
-        <a class="logo-icon mobile-logo icon-light active" href="{{ url('/' . ($page = 'index')) }}"><img
-                src="{{ URL::asset('backend/assets/img/brand/favicon.png') }}" class="logo-icon" alt="logo"></a>
-        <a class="logo-icon mobile-logo icon-dark active" href="{{ url('/' . ($page = 'index')) }}"><img
-                src="{{ URL::asset('backend/assets/img/brand/favicon-white.png') }}" class="logo-icon dark-theme"
-                alt="logo"></a>
+        <a class="desktop-logo logo-light active d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
+            <span style="font-size: 22px; font-weight: bold; color: #1a73e8; letter-spacing: 1px;">CoreDigit</span>
+        </a>
+        <a class="desktop-logo logo-dark active d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
+            <span style="font-size: 22px; font-weight: bold; color: #ffffff; letter-spacing: 1px;">CoreDigit</span>
+        </a>
+        <a class="logo-icon mobile-logo icon-light active d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
+            <span style="font-size: 18px; font-weight: bold; color: #1a73e8;">CD</span>
+        </a>
+        <a class="logo-icon mobile-logo icon-dark active d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
+            <span style="font-size: 18px; font-weight: bold; color: #ffffff;">CD</span>
+        </a>
     </div>
     <div class="main-sidemenu">
         <div class="app-sidebar__user clearfix">

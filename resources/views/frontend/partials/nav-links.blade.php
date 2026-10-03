@@ -68,6 +68,10 @@
 @if (auth()->guard('admin')->check() ||
         auth()->guard('doctor')->check() ||
         auth()->guard('patient')->check() ||
+        auth()->guard('receptionist')->check() ||
+        auth()->guard('nurse')->check() ||
+        auth()->guard('accountant')->check() ||
+        auth()->guard('pharmacist')->check() ||
         auth()->guard('rayEmployee')->check() ||
         auth()->guard('labEmployee')->check())
     <li>
@@ -76,8 +80,5 @@
 @else
     <li>
         <a href="{{ route('login') }}">{{ __('auth.login.') }}</a>
-    </li>
-    <li>
-        <a href="{{ route('register') }}">{{ __('auth.register.') }}</a>
     </li>
 @endif

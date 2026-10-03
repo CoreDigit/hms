@@ -46,9 +46,10 @@ return [
 
         'images' => [
             'driver' => 'local',
-            'root' => public_path('backend/images'),
+            'root' => @is_writable(public_path('backend/images')) ? public_path('backend/images') : '/tmp/storage/images',
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'throw' => false,
         ],
 
         's3' => [

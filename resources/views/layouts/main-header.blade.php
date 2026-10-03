@@ -3,17 +3,9 @@
     <div class="container-fluid">
         <div class="main-header-left ">
             <div class="responsive-logo">
-                <a href="{{ url('/' . ($page = 'index')) }}"><img src="{{ URL::asset('backend/assets/img/brand/logo.png') }}"
-                        class="logo-1" alt="logo"></a>
-                <a href="{{ url('/' . ($page = 'index')) }}"><img
-                        src="{{ URL::asset('backend/assets/img/brand/logo-white.png') }}" class="dark-logo-1"
-                        alt="logo"></a>
-                <a href="{{ url('/' . ($page = 'index')) }}"><img
-                        src="{{ URL::asset('backend/assets/img/brand/favicon.png') }}" class="logo-2"
-                        alt="logo"></a>
-                <a href="{{ url('/' . ($page = 'index')) }}"><img
-                        src="{{ URL::asset('backend/assets/img/brand/favicon.png') }}" class="dark-logo-2"
-                        alt="logo"></a>
+                <a href="{{ url('/') }}" style="text-decoration: none;">
+                    <span style="font-size: 20px; font-weight: bold; color: #1a73e8; letter-spacing: 1px;">CoreDigit</span>
+                </a>
             </div>
             <div class="app-sidebar__toggle" data-toggle="sidebar">
                 <a class="open-toggle" href="#"><i class="header-icon fe fe-align-left"></i></a>

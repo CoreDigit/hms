@@ -17,7 +17,7 @@
 @section('billed-from')
     <h6>{{ __('general.project.name') }}</h6>
     <p>{{ $admin->name }}<br>{{ $admin->email }}<br>
-        {{ __('general.project.support_number') }}: 01026264486
+        {{ __('general.project.support_number') }}: +919274076987
     </p>
 @endsection
 

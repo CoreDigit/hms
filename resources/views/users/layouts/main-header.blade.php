@@ -3,17 +3,8 @@
     <div class="container-fluid">
         <div class="main-header-left ">
             <div class="responsive-logo">
-                <a href="{{ route('web.index') }}">
-                    <img src="{{ URL::asset('frontend/images/HMS.png') }}" class="logo-1" alt="logo">
-                </a>
-                <a href="{{ route('web.index') }}">
-                    <img src="{{ URL::asset('frontend/images/HMS.png') }}" class="dark-logo-1" alt="logo">
-                </a>
-                <a href="{{ route('web.index') }}">
-                    <img src="{{ URL::asset('frontend/images/HMS.png') }}" class="logo-2" alt="logo">
-                </a>
-                <a href="{{ route('web.index') }}">
-                    <img src="{{ URL::asset('frontend/images/HMS.png') }}" class="dark-logo-2" alt="logo">
+                <a href="{{ route('web.index') }}" style="text-decoration: none;">
+                    <span style="font-size: 20px; font-weight: bold; color: #1a73e8; letter-spacing: 1px;">CoreDigit</span>
                 </a>
             </div>
 

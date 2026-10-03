@@ -12,11 +12,15 @@ class RedirectIfAuthenticated
 {
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        $guards = empty($guards) ? [null] : $guards;
+        $allGuards = !empty($guards) && $guards[0] !== null ? $guards : [
+            'admin', 'doctor', 'patient', 'rayEmployee', 'labEmployee', 
+            'receptionist', 'nurse', 'accountant', 'pharmacist', 'web'
+        ];
 
-        foreach ($guards as $guard) {
+        foreach ($allGuards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME[$guard]);
+                $target = RouteServiceProvider::HOME[$guard] ?? '/';
+                return redirect($target);
             }
         }
 

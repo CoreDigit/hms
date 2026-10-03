@@ -36,6 +36,10 @@ class NurseLoginController extends Controller
 
         if (Auth::guard('nurse')->attempt($credentials)) {
             $request->session()->regenerate();
+            $intended = session('url.intended');
+            if ($intended && (str_contains($intended, 'login') || str_contains($intended, 'register'))) {
+                session()->forget('url.intended');
+            }
             return redirect()->intended(RouteServiceProvider::HOME['nurse'] ?? 'nurse/dashboard');
         }
 

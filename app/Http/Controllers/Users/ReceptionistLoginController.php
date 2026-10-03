@@ -39,6 +39,10 @@ class ReceptionistLoginController extends Controller
 
         if (Auth::guard('receptionist')->attempt($credentials)) {
             $request->session()->regenerate();
+            $intended = session('url.intended');
+            if ($intended && (str_contains($intended, 'login') || str_contains($intended, 'register'))) {
+                session()->forget('url.intended');
+            }
             return redirect()->intended(RouteServiceProvider::HOME['receptionist'] ?? 'receptionist/dashboard');
         }
 

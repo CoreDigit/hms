@@ -8,9 +8,8 @@
                 <div class="footer-column col-lg-4 col-md-6 col-sm-12">
                     <div class="footer-widget logo-widget">
                         <div class="logo">
-                            <a href="{{ route('web.index') }}">
-                                <img style="width: 150px" src="{{ asset('frontend/assets/images/logo.png') }}"
-                                    alt="HMS" />
+                            <a href="{{ route('web.index') }}" style="text-decoration: none;">
+                                <span style="font-size: 26px; font-weight: 800; color: #ffffff; letter-spacing: 1px;">CoreDigit</span>
                             </a>
                         </div>
                         <div class="text">{{ __('general.text.footer') }}</div>
@@ -59,12 +58,12 @@
                                 <span class="icon flaticon-call"></span>
                                 {{ __('general.contact.time') }} : 08:30 - 18:00
                                 <br>
-                                <a href="tel:+20 1026264486">+20 1026264486</a>
+                                <a href="tel:+919274076987">+919274076987</a>
                             </li>
                             <li>
                                 <span class="icon flaticon-message"></span>
                                 {{ __('general.contact.question') }}
-                                <a ref="mailto:zyadgamal450@gmail.com">zyadgamal450@gmail.com</a>
+                                <a href="mailto:coredigitsolutions@gmail.com">coredigitsolutions@gmail.com</a>
                             </li>
                         </ul>
                     </div>
@@ -77,7 +76,7 @@
     <div class="footer-bottom">
         <div class="auto-container">
             <div class="copyright">
-                {{ __('general.project.name')}} &copy; Ziad Gamal
+                {{ __('general.project.name')}} &copy; CoreDigit
             </div>
         </div>
     </div>

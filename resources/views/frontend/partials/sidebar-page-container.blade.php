@@ -14,11 +14,11 @@
                         <ul>
                             <li>
                                 <i class="fa fa-tty"></i>
-                                 +20 1026264486
+                                 +919274076987
                             </li>
                             <li>
                                 <i class="far fa-envelope"></i>
-                                zyadgamal450@gmail.com
+                                coredigitsolutions@gmail.com
                             </li>
                         </ul>
                     </div>

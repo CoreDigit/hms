@@ -23,7 +23,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $intended = session('url.intended');
+        if ($intended && (str_contains($intended, 'login') || str_contains($intended, 'register'))) {
+            session()->forget('url.intended');
+        }
+
+        return redirect()->intended('/dashboard');
     }
 
     public function destroy(Request $request): RedirectResponse

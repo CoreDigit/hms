@@ -15,7 +15,7 @@
                             </a>
                             <a href="contact.html" class="theme-btn phone-btn">
                                 <span class="icon flaticon-call"></span>
-                                +20 1026264486
+                                +919274076987
                             </a>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                             </a>
                             <a href="contact.html" class="theme-btn phone-btn">
                                 <span class="icon flaticon-call"></span>
-                                +20 1026264486
+                                +919274076987
                             </a>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                             </a>
                             <a href="contact.html" class="theme-btn phone-btn">
                                 <span class="icon flaticon-call"></span>
-                                +20 1026264486
+                                +919274076987
                             </a>
                         </div>
                     </div>

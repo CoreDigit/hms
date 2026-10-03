@@ -69,4 +69,29 @@ class MultiServiceController extends Controller
             return redirect()->back()->with('inactive_error', __('validation.inactive_error'));
         }
     }
+
+    public function update(MultiServiceRequest $request, MultiService $multiService)
+    {
+        $data = $request->validated();
+        try {
+            DB::beginTransaction();
+            $multiService->update([
+                'price' => $data['price'] ?? $multiService->price,
+                'discount_value' => $data['discount_value'] ?? $multiService->discount_value,
+            ]);
+
+            if (isset($data['name']) && $multiService->service) {
+                $multiService->service->update([
+                    'name' => $data['name'],
+                    'notes' => $data['notes'] ?? null,
+                ]);
+            }
+            DB::commit();
+            return redirect()->route('multi-services.index')->with('updated', __('validation.updated'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('update_error', __('validation.update_error'));
+        }
+    }
+
 }

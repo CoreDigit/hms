@@ -10,7 +10,7 @@
                     </li>
                     <li>
                         <span class="icon fas fa-phone"></span>
-                        <a href="tel:+20 1026264486">+20 1026264486</a>
+                        <a href="tel:+919274076987">+919274076987</a>
                     </li>
                 </ul>
             </div>
@@ -29,9 +29,8 @@
                 <!--Info-->
                 <div class="logo-outer">
                     <div class="logo">
-                        <a href="{{ route('web.index') }}">
-                            <img style="width: 150px" src="{{ asset('frontend/assets/images/logo.png') }}"
-                                alt="HMS" />
+                        <a href="{{ route('web.index') }}" style="text-decoration: none;">
+                            <span style="font-size: 26px; font-weight: 800; color: #1a73e8; letter-spacing: 1px;">CoreDigit</span>
                         </a>
                     </div>
                 </div>
@@ -78,8 +77,8 @@
         <div class="auto-container clearfix">
             <!--Logo-->
             <div class="logo pull-left">
-                <a href="{{ route('web.index') }}">
-                    <img style="width: 100px" src="{{ asset('frontend/assets/images/logo.png') }}" alt="HMS" />
+                <a href="{{ route('web.index') }}" style="text-decoration: none;">
+                    <span style="font-size: 22px; font-weight: 800; color: #1a73e8; letter-spacing: 1px;">CoreDigit</span>
                 </a>
             </div>
 
@@ -107,8 +106,8 @@
         <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
         <nav class="menu-box">
             <div class="nav-logo">
-                <a href="{{ route('web.index') }}">
-                    <img style="width: 150px" src="{{ asset('frontend/assets/images/logo.png') }}" alt="HMS" />
+                <a href="{{ route('web.index') }}" style="text-decoration: none;">
+                    <span style="font-size: 24px; font-weight: 800; color: #1a73e8; letter-spacing: 1px;">CoreDigit</span>
                 </a>
             </div>
 

@@ -1,17 +1,17 @@
 <!-- main-sidebar -->
 <aside class="app-sidebar sidebar-scroll">
     <div class="main-sidebar-header active">
-        <a class="desktop-logo logo-light active" href="{{ url('/') }}">
-            <img src="{{ URL::asset('frontend/images/HMS.png') }}" class="main-logo" alt="logo">
+        <a class="desktop-logo logo-light active d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
+            <span style="font-size: 22px; font-weight: bold; color: #1a73e8; letter-spacing: 1px;">CoreDigit</span>
         </a>
-        <a class="desktop-logo logo-dark active" href="{{ url('/') }}">
-            <img src="{{ URL::asset('frontend/images/HMS.png') }}" class="main-logo dark-theme" alt="logo">
+        <a class="desktop-logo logo-dark active d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
+            <span style="font-size: 22px; font-weight: bold; color: #ffffff; letter-spacing: 1px;">CoreDigit</span>
         </a>
-        <a class="logo-icon mobile-logo icon-light active" href="{{ url('/') }}">
-            <img src="{{ URL::asset('frontend/images/HMS.png') }}" class="logo-icon" alt="logo">
+        <a class="logo-icon mobile-logo icon-light active d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
+            <span style="font-size: 18px; font-weight: bold; color: #1a73e8;">CD</span>
         </a>
-        <a class="logo-icon mobile-logo icon-dark active" href="{{ url('/') }}">
-            <img src="{{ URL::asset('frontend/images/HMS.png') }}" class="logo-icon dark-theme" alt="logo">
+        <a class="logo-icon mobile-logo icon-dark active d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
+            <span style="font-size: 18px; font-weight: bold; color: #ffffff;">CD</span>
         </a>
     </div>
 

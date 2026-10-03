@@ -13,6 +13,11 @@ use App\Rules\UniqueEmailAcrossUsers;
 
 class LabEmployeeLoginController extends Controller
 {
+    public function showLoginForm()
+    {
+        return view('auth.login', ['role' => 'labEmployee']);
+    }
+
     public function index()
     {
         $labStatistics = $this->getLabStatistics(auth()->user());

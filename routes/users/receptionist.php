@@ -14,6 +14,7 @@ Route::group([
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
 
+    Route::get('receptionist/login', [ReceptionistLoginController::class, 'showLoginForm']);
     Route::post('receptionist/login', [ReceptionistLoginController::class, 'store'])->name('receptionist.login');
     Route::post('receptionist/register', [ReceptionistLoginController::class, 'register'])->name('receptionist.register');
 

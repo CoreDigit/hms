@@ -13,6 +13,7 @@ Route::group([
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
 
+    Route::get('accountant/login', [AccountantLoginController::class, 'showLoginForm']);
     Route::post('accountant/login', [AccountantLoginController::class, 'store'])->name('accountant.login');
     Route::post('accountant/register', [AccountantLoginController::class, 'register'])->name('accountant.register');
 

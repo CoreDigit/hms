@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Hash;
 
 class PatientLoginController extends Controller
 {
+    public function showLoginForm()
+    {
+        return view('auth.login', ['role' => 'patient']);
+    }
+
     public function index()
     {
         $patient = auth()->user();

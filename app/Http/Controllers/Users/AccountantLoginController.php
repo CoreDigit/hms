@@ -14,6 +14,11 @@ use App\Rules\UniqueEmailAcrossUsers;
 
 class AccountantLoginController extends Controller
 {
+    public function showLoginForm()
+    {
+        return view('auth.login', ['role' => 'accountant']);
+    }
+
     public function index()
     {
         $todayExpenses = Expense::whereDate('expense_date', today())->sum('amount');

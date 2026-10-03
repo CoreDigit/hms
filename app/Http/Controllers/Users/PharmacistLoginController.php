@@ -14,6 +14,11 @@ use App\Rules\UniqueEmailAcrossUsers;
 
 class PharmacistLoginController extends Controller
 {
+    public function showLoginForm()
+    {
+        return view('auth.login', ['role' => 'pharmacist']);
+    }
+
     public function index()
     {
         $todayInvoicesCount = PharmacyInvoice::whereDate('created_at', today())->count();

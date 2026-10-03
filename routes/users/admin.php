@@ -32,6 +32,7 @@ Route::group([
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
 
+    Route::get('admin/login', [AdminLoginController::class, 'showLoginForm']);
     Route::post('admin/login', [AdminLoginController::class, 'store'])->name('admin.login');
     Route::post('admin/register', [AdminLoginController::class, 'register'])->name('admin.register');
 

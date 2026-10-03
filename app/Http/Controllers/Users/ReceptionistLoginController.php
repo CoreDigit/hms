@@ -15,6 +15,11 @@ use App\Models\Users\Receptionist;
 
 class ReceptionistLoginController extends Controller
 {
+    public function showLoginForm()
+    {
+        return view('auth.login', ['role' => 'receptionist']);
+    }
+
     public function index()
     {
         $todayPatients = Patient::whereDate('created_at', today())->count();

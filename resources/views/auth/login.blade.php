@@ -57,17 +57,21 @@
                                                 <h5 class="font-weight-semibold mb-4">
                                                     {{ __('auth.login.please') }}</h5>
 
+                                                @php
+                                                    $currentRole = $role ?? request('role');
+                                                @endphp
+
                                                 <select id="login_as" class="form-control select2-no-search">
-                                                    <option disabled selected>{{ __('auth.login.as') }}</option>
-                                                    <option value="admin">{{ __('users.admin') }}</option>
-                                                    <option value="receptionist">Receptionist / Front Desk</option>
-                                                    <option value="doctor">{{ __('users.doctor') }}</option>
-                                                    <option value="nurse">Nurse / Clinical Staff</option>
-                                                    <option value="accountant">Accountant / Billing</option>
-                                                    <option value="pharmacist">Pharmacist</option>
-                                                    <option value="rayEmployee">{{ __('users.rayEmployee') }}</option>
-                                                    <option value="labEmployee">{{ __('users.labEmployee') }}</option>
-                                                    <option value="patient">{{ __('users.patient') }}</option>
+                                                    <option disabled {{ !$currentRole ? 'selected' : '' }}>{{ __('auth.login.as') }}</option>
+                                                    <option value="admin" {{ $currentRole == 'admin' ? 'selected' : '' }}>{{ __('users.admin') }}</option>
+                                                    <option value="receptionist" {{ $currentRole == 'receptionist' ? 'selected' : '' }}>Receptionist / Front Desk</option>
+                                                    <option value="doctor" {{ $currentRole == 'doctor' ? 'selected' : '' }}>{{ __('users.doctor') }}</option>
+                                                    <option value="nurse" {{ $currentRole == 'nurse' ? 'selected' : '' }}>Nurse / Clinical Staff</option>
+                                                    <option value="accountant" {{ $currentRole == 'accountant' ? 'selected' : '' }}>Accountant / Billing</option>
+                                                    <option value="pharmacist" {{ $currentRole == 'pharmacist' ? 'selected' : '' }}>Pharmacist</option>
+                                                    <option value="rayEmployee" {{ $currentRole == 'rayEmployee' ? 'selected' : '' }}>{{ __('users.rayEmployee') }}</option>
+                                                    <option value="labEmployee" {{ $currentRole == 'labEmployee' ? 'selected' : '' }}>{{ __('users.labEmployee') }}</option>
+                                                    <option value="patient" {{ $currentRole == 'patient' ? 'selected' : '' }}>{{ __('users.patient') }}</option>
                                                 </select>
 
                                                 <br>
@@ -154,11 +158,15 @@
 @section('js')
     <!-- select log in as -->
     <script>
-        $('#login_as').change(function() {
-            var myId = $(this).val();
+        function toggleLoginForm() {
+            var myId = $('#login_as').val();
             $('.login_form').each(function() {
                 myId === $(this).attr('id') ? $(this).show() : $(this).hide();
             });
+        }
+        $('#login_as').change(toggleLoginForm);
+        $(document).ready(function() {
+            toggleLoginForm();
         });
     </script>
 

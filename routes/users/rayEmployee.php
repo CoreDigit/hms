@@ -11,6 +11,7 @@ Route::group([
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
 
+    Route::get('rayEmployee/login', [RayEmployeeLoginController::class, 'showLoginForm']);
     Route::post('rayEmployee/login', [RayEmployeeLoginController::class, 'store'])->name('rayEmployee.login');
     Route::post('rayEmployee/register', [RayEmployeeLoginController::class, 'register'])->name('rayEmployee.register');
 

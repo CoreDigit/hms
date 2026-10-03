@@ -11,6 +11,7 @@ Route::group([
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
 
+    Route::get('labEmployee/login', [LabEmployeeLoginController::class, 'showLoginForm']);
     Route::post('labEmployee/login', [LabEmployeeLoginController::class, 'store'])->name('labEmployee.login');
     Route::post('labEmployee/register', [LabEmployeeLoginController::class, 'register'])->name('labEmployee.register');
 

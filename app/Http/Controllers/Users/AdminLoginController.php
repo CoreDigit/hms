@@ -25,6 +25,11 @@ use App\Models\Users\Admin;
 
 class AdminLoginController extends Controller
 {
+    public function showLoginForm()
+    {
+        return view('auth.login', ['role' => 'admin']);
+    }
+
     public function index()
     {
         $admin = auth()->user();

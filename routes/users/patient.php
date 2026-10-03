@@ -16,6 +16,7 @@ Route::group([
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
 ], function () {
 
+    Route::get('patient/login', [PatientLoginController::class, 'showLoginForm']);
     Route::post('patient/login', [PatientLoginController::class, 'store'])->name('patient.login');
     Route::post('patient/register', [PatientLoginController::class, 'register'])->name('patient.register');
 

@@ -14,6 +14,11 @@ use App\Rules\UniqueEmailAcrossUsers;
 
 class NurseLoginController extends Controller
 {
+    public function showLoginForm()
+    {
+        return view('auth.login', ['role' => 'nurse']);
+    }
+
     public function index()
     {
         $todayVitals = PatientVital::whereDate('created_at', today())->count();

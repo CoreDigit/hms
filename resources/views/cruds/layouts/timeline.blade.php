@@ -1,3 +1,5 @@
+@extends('users.' . activeGuard() . '.layouts.master')
+
 @section('css')
     <!---Internal  Owl Carousel css-->
     <link href="{{ URL::asset('backend/assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet">

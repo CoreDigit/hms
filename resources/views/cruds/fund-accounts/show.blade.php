@@ -1,5 +1,3 @@
-@extends('users.admin.layouts.master')
-
 @extends('cruds.layouts.print')
 
 @section('title1')

@@ -1,5 +1,3 @@
-@extends('users.labEmployee.layouts.master')
-
 @extends('cruds.layouts.gallery')
 
 @section('title1')

@@ -39,7 +39,7 @@ class SingleServiceController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('single-services.index')->with('created', __('validation.created'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.single-services.index') ? activeGuard() . '.single-services.index' : 'single-services.index')->with('created', __('validation.created'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('create_error', __('validation.create_error'));
@@ -59,7 +59,7 @@ class SingleServiceController extends Controller
             $singleService->update($data);
 
             DB::commit();
-            return redirect()->route('single-services.index')->with('updated', __('validation.updated'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.single-services.index') ? activeGuard() . '.single-services.index' : 'single-services.index')->with('updated', __('validation.updated'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('update_error', __('validation.update_error'));
@@ -72,7 +72,7 @@ class SingleServiceController extends Controller
             $service = $singleService->service;
             $service->delete();
             // $singleService->delete(); // this just delete singleService itself without deleting form service table
-            return redirect()->route('single-services.index')->with('deleted', __('validation.deleted'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.single-services.index') ? activeGuard() . '.single-services.index' : 'single-services.index')->with('deleted', __('validation.deleted'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('delete_error', __('validation.delete_error'));
@@ -89,7 +89,7 @@ class SingleServiceController extends Controller
                 $service = SingleService::find($single_service_id)->service;
                 $service->delete();
             }
-            return redirect()->route('single-services.index')->with('deleted', __('validation.deleted'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.single-services.index') ? activeGuard() . '.single-services.index' : 'single-services.index')->with('deleted', __('validation.deleted'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('delete_error', __('validation.delete_error'));
@@ -100,7 +100,7 @@ class SingleServiceController extends Controller
     {
         try {
             $singleService->service->update(['status' => true]);
-            return redirect()->route('single-services.index')->with('activated', __('validation.activated'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.single-services.index') ? activeGuard() . '.single-services.index' : 'single-services.index')->with('activated', __('validation.activated'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('active_error', __('validation.active_error'));
@@ -111,7 +111,7 @@ class SingleServiceController extends Controller
     {
         try {
             $singleService->service->update(['status' => false]);
-            return redirect()->route('single-services.index')->with('inactivated', __('validation.inactivated'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.single-services.index') ? activeGuard() . '.single-services.index' : 'single-services.index')->with('inactivated', __('validation.inactivated'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('inactive_error', __('validation.inactive_error'));

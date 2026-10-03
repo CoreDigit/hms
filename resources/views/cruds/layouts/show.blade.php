@@ -1,3 +1,5 @@
+@extends('users.' . activeGuard() . '.layouts.master')
+
 @section('css')
     <!-- Hide the image -->
     <style>

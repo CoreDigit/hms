@@ -1,3 +1,5 @@
+@extends('users.' . activeGuard() . '.layouts.master')
+
 @section('css')
     <style>
         @media print {

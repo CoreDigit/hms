@@ -56,7 +56,7 @@ class InvoiceController extends Controller
             ########## ######################## #########
 
             DB::commit();
-            return redirect()->route('invoices.index')->with('created', __('validation.created'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.invoices.index') ? activeGuard() . '.invoices.index' : 'invoices.index')->with('created', __('validation.created'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('create_error', __('validation.create_error'));
@@ -94,7 +94,7 @@ class InvoiceController extends Controller
             ########## ######################## #########
 
             DB::commit();
-            return redirect()->route('invoices.index')->with('updated', __('validation.updated'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.invoices.index') ? activeGuard() . '.invoices.index' : 'invoices.index')->with('updated', __('validation.updated'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('update_error', __('validation.update_error'));
@@ -115,7 +115,7 @@ class InvoiceController extends Controller
 
         try {
             $invoice->delete();
-            return redirect()->route('invoices.index')->with('deleted', __('validation.deleted'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.invoices.index') ? activeGuard() . '.invoices.index' : 'invoices.index')->with('deleted', __('validation.deleted'));
         } catch (\Exception $e) {
             return redirect()->back()->with('delete_error', __('validation.delete_error'));
         }

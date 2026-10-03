@@ -9,7 +9,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="{{ route('receipts.auth.destroy', $receipt->id) }}" method="POST">
+                <form action="{{ (Route::has(activeGuard() . '.receipts.auth.destroy') ? route(activeGuard() . '.receipts.auth.destroy', $receipt->id) : route('receipts.auth.destroy', $receipt->id)) }}" method="POST">
                     @csrf
                     @method('PUT')
 

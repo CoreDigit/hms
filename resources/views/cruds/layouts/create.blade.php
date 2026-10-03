@@ -1,3 +1,5 @@
+@extends('users.' . activeGuard() . '.layouts.master')
+
 @section('css')
     <!--- Internal Select2 css-->
     <link href="{{ URL::asset('backend/assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">

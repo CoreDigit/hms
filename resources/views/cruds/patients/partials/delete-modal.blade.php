@@ -14,7 +14,7 @@
             <div class="modal-body">
                 <p class="text-muted">{{ __('general.warning.delete_account.2') }}</p>
 
-                <form action="{{ auth()->guard('admin')->check() ? route('patients.destroy', $patient->id) : route('patient.destroy') }}" method="POST">
+                <form action="{{ auth()->guard('admin')->check() ? (Route::has(activeGuard() . '.patients.destroy') ? route(activeGuard() . '.patients.destroy', $patient->id) : route('patients.destroy', $patient->id)) : route('patient.destroy') }}" method="POST">
                     @csrf
                     @method('DELETE')
 

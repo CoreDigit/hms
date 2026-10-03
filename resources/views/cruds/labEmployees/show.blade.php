@@ -1,4 +1,3 @@
-@extends(
     auth()->guard('admin')->check()
         ? 'users.admin.layouts.master'
         : 'users.labEmployee.layouts.master'

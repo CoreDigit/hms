@@ -51,7 +51,7 @@ class ReceiptController extends Controller
             ########## ######################## #########
 
             DB::commit();
-            return redirect()->route('receipts.index')->with('created', __('validation.created'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.receipts.index') ? activeGuard() . '.receipts.index' : 'receipts.index')->with('created', __('validation.created'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('create_error', __('validation.create_error'));
@@ -87,7 +87,7 @@ class ReceiptController extends Controller
             ########## ######################## #########
 
             DB::commit();
-            return redirect()->route('receipts.index')->with('updated', __('validation.updated'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.receipts.index') ? activeGuard() . '.receipts.index' : 'receipts.index')->with('updated', __('validation.updated'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('update_error', __('validation.update_error'));
@@ -108,7 +108,7 @@ class ReceiptController extends Controller
 
         try {
             $receipt->delete();
-            return redirect()->route('receipts.index')->with('deleted', __('validation.deleted'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.receipts.index') ? activeGuard() . '.receipts.index' : 'receipts.index')->with('deleted', __('validation.deleted'));
         } catch (\Exception $e) {
             return redirect()->back()->with('delete_error', __('validation.delete_error'));
         }

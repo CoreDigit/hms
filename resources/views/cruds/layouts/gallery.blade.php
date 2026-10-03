@@ -1,3 +1,5 @@
+@extends('users.' . activeGuard() . '.layouts.master')
+
 @section('css')
     <!-- Internal Gallery css -->
     <link href="{{ URL::asset('backend/assets/plugins/gallery/gallery.css') }}" rel="stylesheet">

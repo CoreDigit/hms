@@ -8,7 +8,7 @@
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('payments.store') }}" method="POST" autocomplete="off">
+                <form action="{{ (Route::has(activeGuard() . '.payments.store') ? route(activeGuard() . '.payments.store') : route('payments.store')) }}" method="POST" autocomplete="off">
                     @csrf
 
                     <div class="row mb-3">

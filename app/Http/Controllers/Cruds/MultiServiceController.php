@@ -24,7 +24,7 @@ class MultiServiceController extends Controller
             $service = $multiService->service;
             $service->delete();
             // $multiService->delete(); // this just delete multiservice itself without deleting form service table
-            return redirect()->route('multi-services.index')->with('deleted', __('validation.deleted'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.multi-services.index') ? activeGuard() . '.multi-services.index' : 'multi-services.index')->with('deleted', __('validation.deleted'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('delete_error', __('validation.delete_error'));
@@ -41,7 +41,7 @@ class MultiServiceController extends Controller
                 $service = MultiService::find($multi_service_id)->service;
                 $service->delete();
             }
-            return redirect()->route('multi-services.index')->with('deleted', __('validation.deleted'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.multi-services.index') ? activeGuard() . '.multi-services.index' : 'multi-services.index')->with('deleted', __('validation.deleted'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('delete_error', __('validation.delete_error'));
@@ -52,7 +52,7 @@ class MultiServiceController extends Controller
     {
         try {
             $multiService->service->update(['status' => true]);
-            return redirect()->route('multi-services.index')->with('activated', __('validation.activated'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.multi-services.index') ? activeGuard() . '.multi-services.index' : 'multi-services.index')->with('activated', __('validation.activated'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('active_error', __('validation.active_error'));
@@ -63,7 +63,7 @@ class MultiServiceController extends Controller
     {
         try {
             $multiService->service->update(['status' => false]);
-            return redirect()->route('multi-services.index')->with('inactivated', __('validation.inactivated'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.multi-services.index') ? activeGuard() . '.multi-services.index' : 'multi-services.index')->with('inactivated', __('validation.inactivated'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('inactive_error', __('validation.inactive_error'));
@@ -87,7 +87,7 @@ class MultiServiceController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect()->route('multi-services.index')->with('updated', __('validation.updated'));
+            return redirect()->route(\Illuminate\Support\Facades\Route::has(activeGuard() . '.multi-services.index') ? activeGuard() . '.multi-services.index' : 'multi-services.index')->with('updated', __('validation.updated'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('update_error', __('validation.update_error'));

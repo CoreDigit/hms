@@ -14,7 +14,7 @@
             </div>
 
             <div class="modal-footer">
-                <form action="{{ route('multi-services.destroy', $multiService->id) }}" method="POST">
+                <form action="{{ (Route::has(activeGuard() . '.multi-services.destroy') ? route(activeGuard() . '.multi-services.destroy', $multiService->id) : route('multi-services.destroy', $multiService->id)) }}" method="POST">
                     @csrf
                     @method('DELETE')
 

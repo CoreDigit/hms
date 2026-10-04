@@ -12,7 +12,7 @@ class RedirectIfAuthenticated
 {
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        $allGuards = !empty($guards) && $guards[0] !== null ? $guards : [
+        $allGuards = [
             'admin', 'doctor', 'patient', 'rayEmployee', 'labEmployee', 
             'receptionist', 'nurse', 'accountant', 'pharmacist', 'web'
         ];

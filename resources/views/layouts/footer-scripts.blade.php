@@ -38,3 +38,39 @@
 <!-- custom js -->
 <script src="{{URL::asset('backend/assets/js/custom.js')}}"></script><!-- Left-menu js-->
 <script src="{{URL::asset('backend/assets/plugins/side-menu/sidemenu.js')}}"></script>
+
+<!-- Global Select2 & Modal Integration Handler -->
+<script>
+    $(document).ready(function() {
+        function initGlobalSelect2(container) {
+            var $scope = container ? $(container) : $(document);
+            $scope.find('.select2, .select2-show-search, .select2-dropdown, select.SlectBox').each(function() {
+                var $select = $(this);
+                if ($select.hasClass('select2-hidden-accessible')) {
+                    return;
+                }
+                var $modal = $select.closest('.modal');
+                var opts = {
+                    width: '100%',
+                    placeholder: $select.find('option[disabled][selected]').text() || 'Select option'
+                };
+                if ($modal.length > 0) {
+                    opts.dropdownParent = $modal;
+                }
+                if (typeof $.fn.select2 === 'function') {
+                    $select.select2(opts);
+                }
+            });
+        }
+
+        initGlobalSelect2();
+
+        $(document).on('shown.bs.modal', '.modal', function() {
+            initGlobalSelect2(this);
+        });
+
+        $(document).on('change', '.select2, .select2-show-search, .select2-dropdown', function() {
+            $(this).trigger('blur');
+        });
+    });
+</script>

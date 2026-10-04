@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
 
 /************************ Mine ************************/
 
-Route::middleware(['guest:admin,doctor,patient,rayEmployee,labEmployee'])->group(function () {
+Route::middleware(['guest:admin,doctor,patient,rayEmployee,labEmployee,receptionist,nurse,accountant,pharmacist'])->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);

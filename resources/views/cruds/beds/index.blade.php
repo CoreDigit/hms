@@ -90,7 +90,7 @@
 <!-- Add Ward Modal -->
 <div class="modal fade" id="addWardModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.wards.store') : route('wards.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('receptionist')->check() ? route('receptionist.wards.store') : route('wards.store') }}" method="POST" class="modal-content">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Create New Ward</h5></div>
             <div class="modal-body">
@@ -128,7 +128,7 @@
 <!-- Add Bed Modal -->
 <div class="modal fade" id="addBedModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.beds.store') : route('beds.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('receptionist')->check() ? route('receptionist.beds.store') : route('beds.store') }}" method="POST" class="modal-content">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Add Bed to Ward</h5></div>
             <div class="modal-body">

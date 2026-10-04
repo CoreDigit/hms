@@ -61,7 +61,7 @@
                         <!-- Transfer Modal -->
                         <div class="modal fade" id="transferModal{{ $adm->id }}" tabindex="-1">
                             <div class="modal-dialog">
-                                <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.admissions.transfer', $adm->id) : route('admissions.transfer', $adm->id) }}" method="POST" class="modal-content">
+                                <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('receptionist')->check() ? route('receptionist.admissions.transfer', $adm->id) : route('admissions.transfer', $adm->id) }}" method="POST" class="modal-content">
                                     @csrf
                                     <div class="modal-header"><h5 class="modal-title">Transfer Patient Bed</h5></div>
                                     <div class="modal-body text-left">

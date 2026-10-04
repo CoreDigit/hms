@@ -14,7 +14,7 @@
             </div>
 
             <div class="modal-footer">
-                <form action="{{ (Route::has(activeGuard() . '.single-services.destroy') ? route(activeGuard() . '.single-services.destroy', $singleService->id) : route('single-services.destroy', $singleService->id)) }}" method="POST">
+                <form action="{{ (Route::has(activeGuard() . '.single-services.destroy') ? route(activeGuard() . '.single-services.destroy', $singleService- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id) : route('single-services.destroy', $singleService->id)) }}" method="POST">
                     @csrf
                     @method('DELETE')
 

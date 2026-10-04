@@ -8,7 +8,7 @@
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{ (Route::has(activeGuard() . '.single-services.update') ? route(activeGuard() . '.single-services.update', $singleService->id) : route('single-services.update', $singleService->id)) }}" method="POST"
+                <form action="{{ (Route::has(activeGuard() . '.single-services.update') ? route(activeGuard() . '.single-services.update', $singleService- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id) : route('single-services.update', $singleService->id)) }}" method="POST"
                     autocomplete="off">
                     @csrf
                     @method('PUT')

@@ -74,7 +74,7 @@
 <!-- Add Expense Modal -->
 <div class="modal fade" id="addExpenseModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ auth()->guard('accountant')->check() ? route('accountant.expenses.store') : route('expenses.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('accountant')->check() ? route('accountant.expenses.store') : route('expenses.store') }}" method="POST" class="modal-content">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Log Hospital Expense</h5></div>
             <div class="modal-body">
@@ -130,7 +130,7 @@
 <!-- Add Category Modal -->
 <div class="modal fade" id="addCatModal" tabindex="-1">
     <div class="modal-dialog modal-sm">
-        <form action="{{ auth()->guard('accountant')->check() ? route('accountant.expenses.category.store') : route('expenses.category.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('accountant')->check() ? route('accountant.expenses.category.store') : route('expenses.category.store') }}" method="POST" class="modal-content">
             @csrf
             <div class="modal-header"><h5 class="modal-title">New Expense Category</h5></div>
             <div class="modal-body">

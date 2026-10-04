@@ -11,7 +11,7 @@
     <div class="alert alert-danger">{{ $errors->first() }}</div>
 @endif
 
-<form action="{{ auth()->guard('pharmacist')->check() ? route('pharmacist.pos.store') : route('pharmacy.pos.store') }}" method="POST">
+<form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('pharmacist')->check() ? route('pharmacist.pos.store') : route('pharmacy.pos.store') }}" method="POST">
     @csrf
     <div class="row">
         <div class="col-md-7">

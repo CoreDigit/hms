@@ -54,7 +54,7 @@
                         <!-- Adjust Stock Modal -->
                         <div class="modal fade" id="adjustModal{{ $item->id }}" tabindex="-1">
                             <div class="modal-dialog modal-sm">
-                                <form action="{{ route('inventory.items.stock', $item->id) }}" method="POST" class="modal-content text-left">
+                                <form action="{{ route('inventory.items.stock', $item- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id) }}" method="POST" class="modal-content text-left">
                                     @csrf
                                     <div class="modal-header"><h5 class="modal-title">Adjust Stock: {{ $item->item_name }}</h5></div>
                                     <div class="modal-body">
@@ -89,7 +89,7 @@
 <!-- Add Item Modal -->
 <div class="modal fade" id="addItemModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('inventory.items.store') }}" method="POST" class="modal-content">
+        <form action="{{ route('inventory.items.store') }}" method="POST" class="modal-content" onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Create Inventory Item</h5></div>
             <div class="modal-body">

@@ -23,7 +23,7 @@
                     <span class="badge badge-light text-dark">{{ $role->permissions->count() }} Permissions</span>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('roles.permissions.update', $role->id) }}" method="POST">
+                    <form action="{{ route('roles.permissions.update', $role- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id) }}" method="POST">
                         @csrf
                         <div class="accordion" id="permAccordion{{ $role->id }}">
                             @foreach($permissions as $module => $modulePerms)
@@ -65,7 +65,7 @@
 <!-- Add Role Modal -->
 <div class="modal fade" id="addRoleModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('roles.store') }}" method="POST" class="modal-content">
+        <form action="{{ route('roles.store') }}" method="POST" class="modal-content" onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Create Custom Role</h5></div>
             <div class="modal-body">

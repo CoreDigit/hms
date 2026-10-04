@@ -9,7 +9,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="{{ (Route::has(activeGuard() . '.invoices.auth.destroy') ? route(activeGuard() . '.invoices.auth.destroy', $invoice->id) : route('invoices.auth.destroy', $invoice->id)) }}" method="POST">
+                <form action="{{ (Route::has(activeGuard() . '.invoices.auth.destroy') ? route(activeGuard() . '.invoices.auth.destroy', $invoice- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id) : route('invoices.auth.destroy', $invoice->id)) }}" method="POST">
                     @csrf
                     @method('PUT')
 

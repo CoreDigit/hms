@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header bg-primary text-white">Discharge Medical Certificate & Summary Form</div>
             <div class="card-body">
-                <form action="{{ auth()->guard('doctor')->check() ? route('doctor.discharge_summaries.store') : route('discharge_summaries.store') }}" method="POST">
+                <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('doctor')->check() ? route('doctor.discharge_summaries.store') : route('discharge_summaries.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">

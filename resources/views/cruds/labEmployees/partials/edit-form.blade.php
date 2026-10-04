@@ -1,4 +1,4 @@
-<form action="{{ auth()->guard('admin')->check() ? route('labEmployees.update', $labEmployee->id) : route('labEmployee.update') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+<form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('admin')->check() ? route('labEmployees.update', $labEmployee->id) : route('labEmployee.update') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 

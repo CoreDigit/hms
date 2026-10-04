@@ -14,7 +14,7 @@
             <div class="modal-body">
                 <p class="text-muted">{{ __('general.warning.delete_account.2') }}</p>
 
-                <form action="{{ auth()->guard('admin')->check() ? (Route::has(activeGuard() . '.patients.destroy') ? route(activeGuard() . '.patients.destroy', $patient->id) : route('patients.destroy', $patient->id)) : route('patient.destroy') }}" method="POST">
+                <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('admin')->check() ? (Route::has(activeGuard() . '.patients.destroy') ? route(activeGuard() . '.patients.destroy', $patient->id) : route('patients.destroy', $patient->id)) : route('patient.destroy') }}" method="POST">
                     @csrf
                     @method('DELETE')
 

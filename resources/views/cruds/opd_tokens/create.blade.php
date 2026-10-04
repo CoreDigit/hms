@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header">Generate Token</div>
             <div class="card-body">
-                <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.opd_tokens.store') : route('opd_tokens.store') }}" method="POST">
+                <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('receptionist')->check() ? route('receptionist.opd_tokens.store') : route('opd_tokens.store') }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
                         <label>Select Patient <span class="text-danger">*</span></label>

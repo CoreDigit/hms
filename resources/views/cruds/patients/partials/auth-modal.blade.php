@@ -9,7 +9,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="{{ route('patients.accounts', $patient->id) }}" method="POST">
+                <form action="{{ route('patients.accounts', $patient- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id) }}" method="POST">
                     @csrf
 
                     <div class="form-group">

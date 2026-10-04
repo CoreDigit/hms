@@ -76,7 +76,7 @@
 <!-- Add Medicine Modal -->
 <div class="modal fade" id="addMedModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ auth()->guard('pharmacist')->check() ? route('pharmacist.medicines.store') : route('pharmacy.medicines.store') }}" method="POST" class="modal-content">
+        <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('pharmacist')->check() ? route('pharmacist.medicines.store') : route('pharmacy.medicines.store') }}" method="POST" class="modal-content">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Add Medicine to Inventory</h5></div>
             <div class="modal-body">

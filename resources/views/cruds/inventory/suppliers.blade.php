@@ -51,7 +51,7 @@
 <!-- Add Supplier Modal -->
 <div class="modal fade" id="addSupplierModal" tabindex="-1">
     <div class="modal-dialog">
-        <form action="{{ route('inventory.suppliers.store') }}" method="POST" class="modal-content">
+        <form action="{{ route('inventory.suppliers.store') }}" method="POST" class="modal-content" onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">
             @csrf
             <div class="modal-header"><h5 class="modal-title">Register Supplier</h5></div>
             <div class="modal-body">

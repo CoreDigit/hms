@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header">IPD Admission Form</div>
             <div class="card-body">
-                <form action="{{ auth()->guard('receptionist')->check() ? route('receptionist.admissions.store') : route('admissions.store') }}" method="POST">
+                <form action="{{ auth()- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">guard('receptionist')->check() ? route('receptionist.admissions.store') : route('admissions.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">

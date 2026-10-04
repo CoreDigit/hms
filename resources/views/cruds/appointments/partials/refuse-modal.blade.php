@@ -13,7 +13,7 @@
                 <h6>{{ __('general.warning.refuse') }}</h6>
             </div>
             <div class="modal-footer">
-                <form action="{{ route('doctor.appointments.refuse', $appointment->id)}}" method="post">
+                <form action="{{ route('doctor.appointments.refuse', $appointment- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id)}}" method="post">
                     @method('PUT')
                     @csrf
     

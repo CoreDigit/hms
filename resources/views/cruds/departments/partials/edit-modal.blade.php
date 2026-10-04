@@ -8,7 +8,7 @@
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('departments.update', $department->id) }}" method="POST"
+                <form action="{{ route('departments.update', $department- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id) }}" method="POST"
                     autocomplete="off">
                     @csrf
                     @method('PUT')

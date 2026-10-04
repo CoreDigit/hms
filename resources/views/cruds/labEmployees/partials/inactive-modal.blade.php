@@ -14,7 +14,7 @@
             </div>
 
             <div class="modal-footer">
-                <form action="{{ route('labEmployees.inactivate', $labEmployee->id) }}" method="POST">
+                <form action="{{ route('labEmployees.inactivate', $labEmployee- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id) }}" method="POST">
                     @csrf
                     @method('PUT')
 

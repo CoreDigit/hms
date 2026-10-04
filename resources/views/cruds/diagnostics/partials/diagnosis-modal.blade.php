@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('doctor.diagnostics.diagnosis', $diagnostic->id) }}" method="POST"
+                <form action="{{ route('doctor.diagnostics.diagnosis', $diagnostic- onsubmit="const btn = this.querySelector('button.btn-main-primary, button[type=submit]'); if(btn) { btn.disabled = true; btn.innerHTML = '<i class=\'fas fa-spinner fa-spin mr-1\'></i> Processing...'; }">id) }}" method="POST"
                     autocomplete="off">
                     @csrf
                     @method('PUT')

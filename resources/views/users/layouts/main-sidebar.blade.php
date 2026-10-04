@@ -1,19 +1,5 @@
 <!-- main-sidebar -->
 <aside class="app-sidebar sidebar-scroll">
-    <div class="main-sidebar-header active">
-        <a class="desktop-logo logo-light active d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
-            <span style="font-size: 22px; font-weight: bold; color: #1a73e8; letter-spacing: 1px;">CoreDigit</span>
-        </a>
-        <a class="desktop-logo logo-dark d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
-            <span style="font-size: 22px; font-weight: bold; color: #ffffff; letter-spacing: 1px;">CoreDigit</span>
-        </a>
-        <a class="logo-icon mobile-logo icon-light d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
-            <span style="font-size: 18px; font-weight: bold; color: #1a73e8;">CD</span>
-        </a>
-        <a class="logo-icon mobile-logo icon-dark d-flex align-items-center justify-content-center" href="{{ url('/') }}" style="text-decoration: none;">
-            <span style="font-size: 18px; font-weight: bold; color: #ffffff;">CD</span>
-        </a>
-    </div>
 
     @php
         $user = auth()->user();
